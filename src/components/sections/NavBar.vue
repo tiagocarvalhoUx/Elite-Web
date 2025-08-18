@@ -4,11 +4,10 @@
       <div class="flex items-center justify-between h-14 sm:h-16">
         <!-- Logo -->
         <div class="flex items-center space-x-2 sm:space-x-3">
-          <div class="w-8 h-8 sm:w-10 sm:h-10 bg-gray-700 rounded-full flex items-center justify-center">
-            <span class="text-white font-bold text-sm sm:text-lg">WD</span>
-          </div>
-          <span class="text-lg sm:text-xl font-bold text-gray-800 hidden xs:block">Elite Web Designer</span>
-          <span class="text-lg sm:text-xl font-bold text-gray-800 xs:hidden">Elite WD</span>
+          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
+              <span class="text-white font-bold text-lg sm:text-xl">WD</span>
+            </div>
+            <span class="text-xl text-gray-500 border-b-2 border-transparent   font-bold">Elite Web Designer</span>
         </div>
         
         <!-- Desktop Menu -->
