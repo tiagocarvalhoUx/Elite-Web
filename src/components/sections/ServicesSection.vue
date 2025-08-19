@@ -17,7 +17,7 @@
           </div>
           <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800">Desenvolvimento Frontend</h3>
           <p class="text-gray-600 leading-relaxed">
-            Criamos interfaces modernas e responsivas usando as mais recentes tecnologias como React, Vue.js e Angular.
+            Criamos interfaces modernas e responsivas usando as mais recentes tecnologias como React, Vue.js e TypeScript.
           </p>
         </div>
         
@@ -29,7 +29,7 @@
           </div>
           <h3 class="text-xl sm:text-2xl font-bold mb-3 sm:mb-4 text-gray-800">Desenvolvimento Backend</h3>
           <p class="text-gray-600 leading-relaxed">
-            Sistemas robustos e escaláveis com Node.js, Python e bancos de dados otimizados para alta performance.
+            Sistemas robustos e escaláveis com Node.js, Express.js e bancos de dados otimizados para alta performance.
           </p>
         </div>
         

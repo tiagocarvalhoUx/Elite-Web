@@ -4,7 +4,7 @@
       <!-- Header Section -->
       <div class="text-center mb-8 sm:mb-12">
        
-        <h2 class="text-[#531381] text-xl sm:text-2xl md:text-3xl lg:text-[38px] font-normal font-ramaraja leading-tight">
+        <h2 class="text-[#531381] text-xl sm:text-2xl md:text-3xl lg:text-[38px] font-semibold font-segoe-ui-emoji leading-tight">
           Conferir alguns de nossos projetos
         </h2>
       </div>
@@ -13,51 +13,37 @@
       <div class="max-w-[1280px] mx-auto">
         <!-- First Row -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
-          <div class="project-item">
-            <img 
-              class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-              src="https://placehold.co/407x200/4f46e5/ffffff?text=Projeto+1" 
-              alt="Projeto 1"
-            />
-          </div>
-          <div class="project-item">
-            <img 
-              class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-              src="https://placehold.co/407x200/059669/ffffff?text=Projeto+2" 
-              alt="Projeto 2"
-            />
-          </div>
-          <div class="project-item">
-            <img 
-              class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-              src="https://placehold.co/407x200/dc2626/ffffff?text=Projeto+3" 
-              alt="Projeto 3"
-            />
+          <div class="project-item" v-for="(project, index) in projects.slice(0, 3)" :key="index">
+            <a 
+              :href="project.link" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full h-full"
+            >
+              <img 
+                class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
+                :src="project.src" 
+                :alt="project.alt"
+              />
+            </a>
           </div>
         </div>
         
         <!-- Second Row -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <div class="project-item">
-            <img 
-              class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-              src="https://placehold.co/407x200/7c3aed/ffffff?text=Projeto+4" 
-              alt="Projeto 4"
-            />
-          </div>
-          <div class="project-item">
-            <img 
-              class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-              src="https://placehold.co/407x200/ea580c/ffffff?text=Projeto+5" 
-              alt="Projeto 5"
-            />
-          </div>
-          <div class="project-item">
-            <img 
-              class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-              src="https://placehold.co/407x200/0891b2/ffffff?text=Projeto+6" 
-              alt="Projeto 6"
-            />
+          <div class="project-item" v-for="(project, index) in projects.slice(3, 6)" :key="index + 3">
+            <a 
+              :href="project.link" 
+              target="_blank"
+              rel="noopener noreferrer"
+              class="block w-full h-full"
+            >
+              <img 
+                class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
+                :src="project.src" 
+                :alt="project.alt"
+              />
+            </a>
           </div>
         </div>
       </div>
@@ -70,7 +56,7 @@
           rel="noopener noreferrer"
           class="cta-button bg-gradient-to-b from-[#430d97] to-[#7b2796] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-[25px] shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center mx-auto gap-3 min-w-[280px] sm:min-w-[350px] lg:min-w-[407px] no-underline"
         >
-          <span class="text-sm sm:text-base lg:text-[17px] font-normal font-ramaraja uppercase tracking-wide">
+          <span class="text-sm sm:text-base lg:text-[17px] font-semibold font-segoe-ui-emoji uppercase tracking-wide">
             Vamos dar início ao seu projeto?
           </span>
           <!-- WhatsApp Icon -->
@@ -84,13 +70,60 @@
 </template>
 
 <script>
+// Imports das imagens dos projetos
+import projeto1 from '../../assets/images/burguer layout.png'
+import projeto2 from '../../assets/images/Barbearia.png'
+import projeto3 from '../../assets/images/Faster-food.png'
+import projeto4 from '../../assets/images/Mrv.png'
+import projeto5 from '../../assets/images/Pet-shop.png'
+import projeto6 from '../../assets/images/coffe-app.png'
+
 export default {
   name: 'ProjectsGallerySection',
   data() {
     return {
       // Configure seu número do WhatsApp aqui (formato internacional)
       phoneNumber: '5518981142927', // Substitua pelo seu número
-      message: 'Olá! Gostaria de iniciar um projeto com vocês. Vi o portfólio no site e me interessei pelos serviços.'
+      message: 'Olá! Gostaria de iniciar um projeto com vocês. Vi o portfólio no site e me interessei pelos serviços.',
+      // Imagens dos projetos com links
+      projects: [
+        { 
+          src: projeto1, 
+          alt: 'Projeto Burger Layout', 
+          link: 'https://cardapio-hambuguer-three.vercel.app/', // Link interno da aplicação
+          external: false
+        },
+        { 
+          src: projeto2, 
+          alt: 'Projeto Barbearia', 
+          link: 'https://barbearia-react-eight.vercel.app/',
+          external: false
+        },
+        { 
+          src: projeto3, 
+          alt: 'Projeto Faster Food', 
+          link: 'https://faster-food-omega.vercel.app/',
+          external: false
+        },
+        { 
+          src: projeto4, 
+          alt: 'https://mrv-house.vercel.app/', 
+          link: 'https://exemplo-mrv.com', // Link externo
+          external: true
+        },
+        { 
+          src: projeto5, 
+          alt: 'Projeto Pet Shop', 
+          link: 'https://petshop-chi.vercel.app/',
+          external: false
+        },
+        { 
+          src: projeto6, 
+          alt: 'Projeto Coffee App', 
+          link: 'https://coffe-web-henna.vercel.app/', // Link externo
+          external: true
+        }
+      ]
     }
   },
   computed: {
@@ -103,17 +136,18 @@ export default {
 </script>
 
 <style scoped>
-/* Importar fonte Ramaraja */
-@import url('https://fonts.googleapis.com/css2?family=Ramaraja:wght@400&display=swap');
-
-.font-ramaraja {
-  font-family: 'Ramaraja', serif;
+.font-segoe-ui-emoji {
+  font-family: 'Segoe UI Emoji', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 .project-item {
   position: relative;
   overflow: hidden;
   border-radius: 10px;
+}
+
+.project-item a {
+  text-decoration: none;
 }
 
 .project-item::after {

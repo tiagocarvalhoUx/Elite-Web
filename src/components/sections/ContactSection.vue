@@ -2,8 +2,8 @@
   <section id="contact" class="py-12 sm:py-16 md:py-20 bg-white">
     <div class="container mx-auto px-4 sm:px-6">
       <div class="text-center mb-12 sm:mb-16">
-        <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gradient mb-4 font-ramaraja">Vamos Conversar</h2>
-        <p class="text-xl sm:text-2xl text-gray-600 max-w-2xl mx-auto font-ramaraja">
+        <h2 class="text-4xl sm:text-5xl md:text-6xl font-bold text-gradient mb-4 font-segoe-ui-emoji">Vamos Conversar</h2>
+        <p class="text-xl sm:text-2xl text-gray-600 max-w-2xl mx-auto font-segoe-ui-emoji">
           Pronto para transformar sua ideia em realidade? Entre em contato conosco para um orçamento personalizado
         </p>
       </div>
@@ -19,8 +19,8 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-ramaraja">Localização</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-ramaraja">São Paulo, SP - Brasil<br>Atendimento em todo território nacional</p>
+              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Localização</h3>
+              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">São Paulo, SP - Brasil<br>Atendimento em todo território nacional</p>
             </div>
           </div>
           
@@ -31,8 +31,8 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-ramaraja">Telefone & WhatsApp</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-ramaraja">(11) 99999-9999<br>Disponível 24h via WhatsApp</p>
+              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Telefone & WhatsApp</h3>
+              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">(18) 98114-2927<br>Disponível 24h via WhatsApp</p>
             </div>
           </div>
           
@@ -43,8 +43,8 @@
               </svg>
             </div>
             <div>
-              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-ramaraja">E-mail</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-ramaraja">contato@elitewebdesigner.com<br>Resposta em até 2 horas</p>
+              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">E-mail</h3>
+              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">contato@elitewebdesigner.com<br>Resposta em até 2 horas</p>
             </div>
           </div>
         </div>
@@ -58,7 +58,7 @@
                   v-model="form.name"
                   type="text" 
                   placeholder="Seu Nome" 
-                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-ramaraja"
+                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-segoe-ui-emoji"
                   required
                 >
               </div>
@@ -67,7 +67,7 @@
                   v-model="form.email"
                   type="email" 
                   placeholder="Seu E-mail" 
-                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-ramaraja"
+                  class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-segoe-ui-emoji"
                   required
                 >
               </div>
@@ -77,14 +77,14 @@
                 v-model="form.phone"
                 type="tel" 
                 placeholder="Telefone/WhatsApp" 
-                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-ramaraja"
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-segoe-ui-emoji"
                 required
               >
             </div>
             <div>
               <select 
                 v-model="form.projectType"
-                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-ramaraja"
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all text-base sm:text-lg font-segoe-ui-emoji"
                 required
               >
                 <option value="">Selecione o tipo de projeto</option>
@@ -101,13 +101,13 @@
                 v-model="form.message"
                 placeholder="Descreva seu projeto..." 
                 rows="4"
-                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none text-base sm:text-lg font-ramaraja"
+                class="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none text-base sm:text-lg font-segoe-ui-emoji"
                 required
               ></textarea>
             </div>
             <button 
               type="submit" 
-              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all hover-scale shadow-lg text-base sm:text-lg font-ramaraja"
+              class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all hover-scale shadow-lg text-base sm:text-lg font-segoe-ui-emoji"
             >
               Solicitar Orçamento Gratuito
             </button>
@@ -145,7 +145,7 @@ export default {
 *Tipo de Projeto:* ${this.form.projectType}
 *Descrição:* ${this.form.message}`
       
-      const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent(whatsappMessage)}`
+      const whatsappUrl = `https://wa.me/5518981142927?text=${encodeURIComponent(whatsappMessage)}`
       window.open(whatsappUrl, '_blank')
       
       // Reset form
@@ -165,11 +165,8 @@ export default {
 </script>
 
 <style scoped>
-/* Importar fonte Ramaraja */
-@import url('https://fonts.googleapis.com/css2?family=Ramaraja:wght@400&display=swap');
-
-.font-ramaraja {
-  font-family: 'Ramaraja', serif;
+.font-segoe-ui-emoji {
+  font-family: 'Segoe UI Emoji', 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
 .text-gradient {

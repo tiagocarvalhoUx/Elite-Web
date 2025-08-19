@@ -7,7 +7,7 @@
         <img 
           src="../../assets/images/home-hero-banner.png" 
           alt="Creative laptop banner"
-          class="w-full h-full object-cover opacity-40"
+          class="w-full h-full object-cover opacity-90"
         />
       </div>
       
