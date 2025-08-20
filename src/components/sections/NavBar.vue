@@ -11,7 +11,7 @@
         </div>
         
         <!-- Desktop Menu -->
-        <div class="hidden md:flex space-x-8">
+        <div class=" hidden md:flex space-x-8">
           <a href="#home" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Início</a>
           <a href="#services" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Serviços</a>
           <a href="#projects" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Projetos</a>
@@ -21,7 +21,7 @@
         <!-- Mobile Menu Button -->
         <button 
           @click="toggleMobileMenu" 
-          class="md:hidden p-2"
+          class="md:hidden p-2 "
           aria-label="Menu"
         >
           <svg class="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,7 +47,7 @@
       <transition name="fade">
         <div 
           v-show="mobileMenuOpen" 
-          class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center space-y-6 px-6"
+          class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-start pt-24 space-y-6 px-6"
         >
           <button
             @click="toggleMobileMenu"
@@ -61,28 +61,28 @@
           <a 
             href="#home" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+            class="block text-2xl font-bold text-gray-300 hover:text-blue-400 transition-colors py-2 w-full text-center"
           >
             Início
           </a>
           <a 
             href="#services" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+            class="block text-2xl font-bold text-gray-300 hover:text-blue-400 transition-colors py-2 w-full text-center"
           >
             Serviços
           </a>
           <a 
             href="#projects" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+            class="block text-2xl font-bold text-gray-300 hover:text-blue-400 transition-colors py-2 w-full text-center"
           >
             Projetos
           </a>
           <a 
             href="#contact" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+            class="block text-2xl font-bold text-gray-300 hover:text-blue-400 transition-colors py-2 w-full text-center"
           >
             Contato
           </a>
