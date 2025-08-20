@@ -5,9 +5,9 @@
         <!-- Logo -->
         <div class="flex items-center space-x-2 sm:space-x-3">
           <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-              <span class="text-white font-bold text-lg sm:text-xl">WD</span>
-            </div>
-            <span class="text-xl text-gray-500 border-b-2 border-transparent   font-bold">Elite Web Designer</span>
+            <span class="text-white font-bold text-lg sm:text-xl">WD</span>
+          </div>
+          <span class="text-xl text-gray-500 border-b-2 border-transparent font-bold">Elite Web Designer</span>
         </div>
         
         <!-- Desktop Menu -->
@@ -24,7 +24,7 @@
           class="md:hidden p-2"
           aria-label="Menu"
         >
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg class="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path 
               v-if="!mobileMenuOpen"
               stroke-linecap="round" 
@@ -43,40 +43,51 @@
         </button>
       </div>
       
-      <!-- Mobile Menu -->
-      <div 
-        v-show="mobileMenuOpen" 
-        class="md:hidden bg-white border-t border-gray-200 py-4 space-y-2"
-      >
-        <a 
-          href="#home" 
-          @click="scrollToSection" 
-          class="block px-4 py-2 text-gray-900 hover:text-blue-600 hover:bg-gray-50 transition-colors font-semibold"
+      <!-- Mobile Menu Melhorado -->
+      <transition name="fade">
+        <div 
+          v-show="mobileMenuOpen" 
+          class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-center space-y-6 px-6"
         >
-          Início
-        </a>
-        <a 
-          href="#services" 
-          @click="scrollToSection" 
-          class="block px-4 py-2 text-gray-900 hover:text-blue-600 hover:bg-gray-50 transition-colors font-semibold"
-        >
-          Serviços
-        </a>
-        <a 
-          href="#projects" 
-          @click="scrollToSection" 
-          class="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors font-semibold"
-        >
-          Projetos
-        </a>
-        <a 
-          href="#contact" 
-          @click="scrollToSection" 
-          class="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 transition-colors font-semibold"
-        >
-          Contato
-        </a>
-      </div>
+          <button
+            @click="toggleMobileMenu"
+            class="absolute top-6 right-6 text-white bg-black/30 rounded-full p-2 shadow-lg focus:outline-none"
+            aria-label="Fechar menu"
+          >
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+            </svg>
+          </button>
+          <a 
+            href="#home" 
+            @click="scrollToSection" 
+            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+          >
+            Início
+          </a>
+          <a 
+            href="#services" 
+            @click="scrollToSection" 
+            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+          >
+            Serviços
+          </a>
+          <a 
+            href="#projects" 
+            @click="scrollToSection" 
+            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+          >
+            Projetos
+          </a>
+          <a 
+            href="#contact" 
+            @click="scrollToSection" 
+            class="block text-2xl font-bold text-white hover:text-blue-400 transition-colors py-2 w-full text-center"
+          >
+            Contato
+          </a>
+        </div>
+      </transition>
     </div>
   </nav>
 </template>
@@ -117,3 +128,12 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+.fade-enter-active, .fade-leave-active {
+  transition: opacity 0.3s;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+}
+</style>
