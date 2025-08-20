@@ -3,7 +3,6 @@
     <div class="container mx-auto px-4 sm:px-6 max-w-[1920px]">
       <!-- Header Section -->
       <div class="text-center mb-8 sm:mb-12">
-       
         <h2 class="text-[#531381] text-xl sm:text-2xl md:text-3xl lg:text-[38px] font-semibold font-segoe-ui-emoji leading-tight">
           Conferir alguns de nossos projetos
         </h2>
@@ -11,27 +10,8 @@
       
       <!-- Projects Grid -->
       <div class="max-w-[1280px] mx-auto">
-        <!-- First Row -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
-          <div class="project-item" v-for="(project, index) in projects.slice(0, 3)" :key="index">
-            <a 
-              :href="project.link" 
-              target="_blank"
-              rel="noopener noreferrer"
-              class="block w-full h-full"
-            >
-              <img 
-                class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-                :src="project.src" 
-                :alt="project.alt"
-              />
-            </a>
-          </div>
-        </div>
-        
-        <!-- Second Row -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <div class="project-item" v-for="(project, index) in projects.slice(3, 6)" :key="index + 3">
+          <div class="project-item" v-for="(project, index) in projects" :key="index">
             <a 
               :href="project.link" 
               target="_blank"
@@ -77,6 +57,9 @@ import projeto3 from '../../assets/images/Faster-food.png'
 import projeto4 from '../../assets/images/Mrv.png'
 import projeto5 from '../../assets/images/Pet-shop.png'
 import projeto6 from '../../assets/images/coffe-app.png'
+import projeto7 from '../../assets/images/marcenaria.png'
+import projeto8 from '../../assets/images/reza-vela.png'
+import projeto9 from '../../assets/images/caetano-hidráulica.png'
 
 export default {
   name: 'ProjectsGallerySection',
@@ -87,6 +70,43 @@ export default {
       message: 'Olá! Gostaria de iniciar um projeto com vocês. Vi o portfólio no site e me interessei pelos serviços.',
       // Imagens dos projetos com links
       projects: [
+        
+        { 
+          src: projeto4, 
+          alt: 'https://mrv-house.vercel.app/', 
+          link: 'https://exemplo-mrv.com', // Link externo
+          external: true
+        },
+        { 
+          src: projeto5, 
+          alt: 'Projeto Pet Shop', 
+          link: 'https://petshop-chi.vercel.app/',
+          external: false
+        },
+        { 
+          src: projeto6, 
+          alt: 'Projeto Coffee App', 
+          link: 'https://coffe-web-henna.vercel.app/', // Link externo
+          external: true
+        },
+        { 
+          src: projeto7, 
+          alt: 'Projeto Marcenaria App', 
+          link: 'https://marcenaria-vue.vercel.app/', // Link externo
+          external: true
+        },
+        { 
+          src: projeto8, 
+          alt: 'Projeto Reza Vela', 
+          link: 'https://reza-vela.vercel.app/', // Link externo
+          external: true
+        },
+        { 
+          src: projeto9, 
+          alt: 'Projeto Caetano Hidráulica', 
+          link: 'https://caetano-hidraulica.vercel.app/', // Link externo
+          external: true
+        },
         { 
           src: projeto1, 
           alt: 'Projeto Burger Layout', 
@@ -105,24 +125,6 @@ export default {
           link: 'https://faster-food-omega.vercel.app/',
           external: false
         },
-        { 
-          src: projeto4, 
-          alt: 'https://mrv-house.vercel.app/', 
-          link: 'https://exemplo-mrv.com', // Link externo
-          external: true
-        },
-        { 
-          src: projeto5, 
-          alt: 'Projeto Pet Shop', 
-          link: 'https://petshop-chi.vercel.app/',
-          external: false
-        },
-        { 
-          src: projeto6, 
-          alt: 'Projeto Coffee App', 
-          link: 'https://coffe-web-henna.vercel.app/', // Link externo
-          external: true
-        }
       ]
     }
   },

@@ -20,7 +20,7 @@
             </div>
             <div>
               <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Localização</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">São Paulo, SP - Brasil<br>Atendimento em todo território nacional</p>
+              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">Araçatuba, SP - Brasil<br>Atendimento em todo território nacional</p>
             </div>
           </div>
           
