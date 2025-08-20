@@ -58,7 +58,7 @@ import projeto4 from '../../assets/images/Mrv.png'
 import projeto5 from '../../assets/images/Pet-shop.png'
 import projeto6 from '../../assets/images/coffe-app.png'
 import projeto7 from '../../assets/images/marcenaria.png'
-import projeto8 from '../../assets/images/reza-vela.png'
+import projeto8 from '../../assets/images/Reza-Vela.png'
 import projeto9 from '../../assets/images/caetano-hidráulica.png'
 
 export default {
