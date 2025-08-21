@@ -73,8 +73,8 @@ export default {
         
         { 
           src: projeto4, 
-          alt: 'https://mrv-house.vercel.app/', 
-          link: 'https://exemplo-mrv.com', // Link externo
+          alt: 'Projeto MRV', 
+          link: 'https://mrv-house.vercel.app/', // Link externo
           external: true
         },
         { 
