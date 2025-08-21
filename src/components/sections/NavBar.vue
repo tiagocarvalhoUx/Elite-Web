@@ -61,28 +61,28 @@
           <a 
             href="#home" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
+            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
           >
             Início
           </a>
           <a 
             href="#services" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
+            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
           >
             Serviços
           </a>
           <a 
             href="#projects" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
+            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
           >
             Projetos
           </a>
           <a 
             href="#contact" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
+            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
           >
             Contato
           </a>
