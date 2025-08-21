@@ -21,7 +21,7 @@
         <!-- Mobile Menu Button -->
         <button 
           @click="toggleMobileMenu" 
-          class="md:hidden p-2 "
+          class="md:hidden p-2  "
           aria-label="Menu"
         >
           <svg class="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -47,42 +47,42 @@
       <transition name="fade">
         <div 
           v-show="mobileMenuOpen" 
-          class="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex flex-col items-center justify-start pt-24 space-y-6 px-6"
+          class="fixed inset-0 z-50 bg-black/10 backdrop-blur-sm flex flex-col items-center  justify-start pt-24 space-y-6 px-6"
         >
           <button
             @click="toggleMobileMenu"
             class="absolute top-6 right-6 text-white bg-black/30 rounded-full p-2 shadow-lg focus:outline-none"
             aria-label="Fechar menu"
           >
-            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-8 h-8 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
             </svg>
           </button>
           <a 
             href="#home" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500  rounded-full"
+            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
           >
             Início
           </a>
           <a 
             href="#services" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full"
+            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
           >
             Serviços
           </a>
           <a 
             href="#projects" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500  rounded-full"
+            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
           >
             Projetos
           </a>
           <a 
             href="#contact" 
             @click="scrollToSection" 
-            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full"
+            class="block text-2xl font-bold text-blue-300 hover:text-blue-500 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-300/20"
           >
             Contato
           </a>
