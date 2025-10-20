@@ -11,20 +11,28 @@
       <!-- Projects Grid -->
       <div class="max-w-[1280px] mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6">
-          <div class="project-item" v-for="(project, index) in projects" :key="index">
-            <a 
-              :href="project.link" 
+          <ElectricBorder
+            v-for="(project, index) in projects"
+            :key="index"
+            color="#7b2796"
+            :speed="1.5"
+            :chaos="1"
+            :thickness="2"
+            class="project-item"
+          >
+            <a
+              :href="project.link"
               target="_blank"
               rel="noopener noreferrer"
               class="block w-full h-full"
             >
-              <img 
-                class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer" 
-                :src="project.src" 
+              <img
+                class="w-full h-[150px] sm:h-[180px] md:h-[200px] object-cover rounded-[10px] hover:scale-105 transition-transform duration-300 cursor-pointer"
+                :src="project.src"
                 :alt="project.alt"
               />
             </a>
-          </div>
+          </ElectricBorder>
         </div>
       </div>
       
@@ -51,6 +59,7 @@
 
 <script>
 // Imports das imagens dos projetos
+import ElectricBorder from '../ElectricBorder.vue'
 import projeto1 from '../../assets/images/burguer layout.png'
 import projeto2 from '../../assets/images/Barbearia.png'
 import projeto3 from '../../assets/images/Faster-food.png'
@@ -63,6 +72,9 @@ import projeto9 from '../../assets/images/caetano-hidráulica.png'
 
 export default {
   name: 'ProjectsGallerySection',
+  components: {
+    ElectricBorder
+  },
   data() {
     return {
       // Configure seu número do WhatsApp aqui (formato internacional)

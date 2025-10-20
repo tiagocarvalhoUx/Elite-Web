@@ -11,47 +11,54 @@
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-12 max-w-6xl mx-auto">
         <!-- Contact Info -->
         <div class="space-y-6 sm:space-y-8">
-          <div class="flex items-start space-x-4">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
+          <ElectricBorder color="#3b82f6" :speed="1" :chaos="0.7" :thickness="2">
+            <div class="flex items-start space-x-4 bg-gradient-to-br from-blue-50 to-indigo-50 p-4 rounded-xl">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Localização</h3>
+                <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">Araçatuba, SP - Brasil<br>Atendimento em todo território nacional</p>
+              </div>
             </div>
-            <div>
-              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Localização</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">Araçatuba, SP - Brasil<br>Atendimento em todo território nacional</p>
+          </ElectricBorder>
+
+          <ElectricBorder color="#10b981" :speed="1" :chaos="0.7" :thickness="2">
+            <div class="flex items-start space-x-4 bg-gradient-to-br from-green-50 to-emerald-50 p-4 rounded-xl">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Telefone & WhatsApp</h3>
+                <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">(18) 98114-2927<br>Disponível 24h via WhatsApp</p>
+              </div>
             </div>
-          </div>
-          
-          <div class="flex items-start space-x-4">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-green-500 to-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
-              </svg>
+          </ElectricBorder>
+
+          <ElectricBorder color="#a855f7" :speed="1" :chaos="0.7" :thickness="2">
+            <div class="flex items-start space-x-4 bg-gradient-to-br from-purple-50 to-pink-50 p-4 rounded-xl">
+              <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">E-mail</h3>
+                <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">contato@elitewebdesigner.com<br>Resposta em até 2 horas</p>
+              </div>
             </div>
-            <div>
-              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">Telefone & WhatsApp</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">(18) 98114-2927<br>Disponível 24h via WhatsApp</p>
-            </div>
-          </div>
-          
-          <div class="flex items-start space-x-4">
-            <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg flex items-center justify-center flex-shrink-0">
-              <svg class="w-5 h-5 sm:w-6 sm:h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
-              </svg>
-            </div>
-            <div>
-              <h3 class="text-xl sm:text-2xl font-semibold mb-2 font-segoe-ui-emoji">E-mail</h3>
-              <p class="text-gray-600 text-base sm:text-lg font-segoe-ui-emoji">contato@elitewebdesigner.com<br>Resposta em até 2 horas</p>
-            </div>
-          </div>
+          </ElectricBorder>
         </div>
         
         <!-- Contact Form -->
-        <div class="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-2xl">
-          <form @submit="handleSubmit" class="space-y-4 sm:space-y-6">
+        <ElectricBorder color="#667eea" :speed="0.8" :chaos="0.6" :thickness="3">
+          <div class="bg-gradient-to-br from-gray-50 to-white p-6 sm:p-8 rounded-2xl shadow-2xl">
+            <form @submit="handleSubmit" class="space-y-4 sm:space-y-6">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
                 <input 
@@ -105,22 +112,28 @@
                 required
               ></textarea>
             </div>
-            <button 
-              type="submit" 
+            <button
+              type="submit"
               class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 rounded-lg font-semibold hover:from-blue-700 hover:to-purple-700 transition-all hover-scale shadow-lg text-base sm:text-lg font-segoe-ui-emoji"
             >
               Solicitar Orçamento Gratuito
             </button>
           </form>
-        </div>
+          </div>
+        </ElectricBorder>
       </div>
     </div>
   </section>
 </template>
 
 <script>
+import ElectricBorder from '../ElectricBorder.vue'
+
 export default {
   name: 'ContactSection',
+  components: {
+    ElectricBorder
+  },
   data() {
     return {
       form: {

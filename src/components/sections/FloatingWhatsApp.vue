@@ -1,11 +1,12 @@
 <template>
   <div class="fixed bottom-8 right-4 sm:bottom-6 sm:right-6 z-50">
-    <a 
-      href="https://wa.me/5518981142927" 
-      target="_blank" 
-      class="whatsapp-float relative flex items-center justify-center p-3 sm:p-4 rounded-full shadow-2xl group"
-      aria-label="Contato via WhatsApp"
-    >
+    <ElectricBorder color="#25D366" :speed="2" :chaos="1.2" :thickness="2">
+      <a
+        href="https://wa.me/5518981142927"
+        target="_blank"
+        class="whatsapp-float relative flex items-center justify-center p-3 sm:p-4 rounded-full shadow-2xl group"
+        aria-label="Contato via WhatsApp"
+      >
       <!-- Brilho animado atrás do ícone -->
       <span class="whatsapp-glow absolute inset-0 flex items-center justify-center pointer-events-none">
         <span class="block w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-br from-green-400 via-green-500 to-green-600 blur-[6px] animate-glow"></span>
@@ -53,7 +54,8 @@
           <div class="w-0 h-0 border-l-8 border-l-white border-t-8 border-t-transparent border-b-8 border-b-transparent"></div>
         </div>
       </div>
-    </a>
+      </a>
+    </ElectricBorder>
     <!-- Notification dots animation -->
     <div class="absolute top-0 left-0 w-full h-full pointer-events-none">
       <div class="notification-dot absolute top-2 left-2 w-1 h-1 bg-white rounded-full opacity-0"></div>
@@ -64,8 +66,13 @@
 </template>
 
 <script>
+import ElectricBorder from '../ElectricBorder.vue'
+
 export default {
   name: 'FloatingWhatsApp',
+  components: {
+    ElectricBorder
+  },
   mounted() {
     this.animateNotificationDots();
   },
