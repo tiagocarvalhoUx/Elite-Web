@@ -22,13 +22,8 @@
         </p>
       </div>
 
-      <!-- Loading State -->
-      <div v-if="projectsStore.loading" class="flex justify-center items-center py-20">
-        <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-500"></div>
-      </div>
-
       <!-- Projects Grid -->
-      <div v-else class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <a
           v-for="(project, index) in projects"
           :key="index"
@@ -93,22 +88,94 @@ import NeonButton from "../ui/NeonButton.vue";
 import TechBadge from "../ui/TechBadge.vue";
 import { useProjectsStore } from "../../stores";
 
+// Imports das imagens dos projetos originais
+import projeto1 from "../../assets/images/burguer layout.png";
+import projeto2 from "../../assets/images/Barbearia.png";
+import projeto3 from "../../assets/images/Faster-food.png";
+import projeto4 from "../../assets/images/Mrv.png";
+import projeto5 from "../../assets/images/Pet-shop.png";
+import projeto6 from "../../assets/images/coffe-app.png";
+import projeto7 from "../../assets/images/marcenaria.png";
+import projeto8 from "../../assets/images/Reza-Vela.png";
+import projeto9 from "../../assets/images/caetano-hidráulica.png";
+
 const projectsStore = useProjectsStore();
 
-// Buscar projetos ativos da API
+// Projetos originais com imagens locais
+const originalProjects = [
+  {
+    src: projeto4,
+    alt: "Projeto MRV",
+    link: "https://mrv-house.vercel.app/",
+  },
+  {
+    src: projeto5,
+    alt: "Projeto Pet Shop",
+    link: "https://petshop-chi.vercel.app/",
+  },
+  {
+    src: projeto6,
+    alt: "Projeto Coffee App",
+    link: "https://coffe-web-henna.vercel.app/",
+  },
+  {
+    src: projeto7,
+    alt: "Projeto Marcenaria App",
+    link: "https://marcenaria-vue.vercel.app/",
+  },
+  {
+    src: projeto8,
+    alt: "Projeto Reza Vela",
+    link: "https://reza-vela.vercel.app/",
+  },
+  {
+    src: projeto9,
+    alt: "Projeto Caetano Hidráulica",
+    link: "https://caetano-hidraulica.vercel.app/",
+  },
+  {
+    src: projeto1,
+    alt: "Projeto Burger Layout",
+    link: "https://cardapio-hambuguer-three.vercel.app/",
+  },
+  {
+    src: projeto2,
+    alt: "Projeto Barbearia",
+    link: "https://barbearia-react-eight.vercel.app/",
+  },
+  {
+    src: projeto3,
+    alt: "Projeto Faster Food",
+    link: "https://faster-food-omega.vercel.app/",
+  },
+];
+
+// Buscar projetos novos da API
 onMounted(() => {
   projectsStore.fetchProjects();
 });
 
-// Usar projetos da store (apenas ativos)
-const projects = computed(() => 
-  projectsStore.activeProjects.map(p => ({
-    src: projectsStore.getImageUrl(p.image_url),
-    alt: p.title,
-    link: p.project_link,
-    description: p.description
-  }))
-);
+// Combinar projetos originais + novos da API (que não sejam os mesmos)
+const projects = computed(() => {
+  // Projetos novos da API (excluir os que já existem nos originais)
+  const originalTitles = originalProjects.map((p) => p.alt.toLowerCase());
+  const newFromApi = projectsStore.activeProjects
+    .filter(
+      (p) =>
+        !originalTitles.some(
+          (title) =>
+            p.title.toLowerCase().includes(title.replace("projeto ", "")) ||
+            title.includes(p.title.toLowerCase()),
+        ),
+    )
+    .map((p) => ({
+      src: projectsStore.getImageUrl(p.image_url),
+      alt: p.title,
+      link: p.project_link,
+    }));
+
+  return [...originalProjects, ...newFromApi];
+});
 
 // Handler para erro de imagem
 const handleImageError = (event: Event) => {
