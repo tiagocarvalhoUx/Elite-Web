@@ -9,8 +9,9 @@ const router = express.Router();
 // Helper para gerar URL base
 const getBaseUrl = (req) => {
   // Em produção, usar HTTPS
-  const protocol = process.env.NODE_ENV === 'production' ? 'https' : req.protocol;
-  return `${protocol}://${req.get('host')}`;
+  const protocol =
+    process.env.NODE_ENV === "production" ? "https" : req.protocol;
+  return `${protocol}://${req.get("host")}`;
 };
 
 // Configuração do Multer para upload de imagens

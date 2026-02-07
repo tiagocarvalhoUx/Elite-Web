@@ -348,7 +348,7 @@ const handleImageError = (event: Event) => {
 }
 
 onMounted(() => {
-  projectsStore.fetchProjects()
+  projectsStore.fetchProjects({ active: false })
 })
 </script>
 

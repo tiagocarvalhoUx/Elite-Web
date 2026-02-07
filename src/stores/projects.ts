@@ -58,6 +58,7 @@ export const useProjectsStore = defineStore("projects", () => {
   const fetchProjects = async (filters?: {
     category?: string;
     search?: string;
+    active?: boolean;
   }): Promise<void> => {
     loading.value = true;
     error.value = null;
@@ -68,6 +69,7 @@ export const useProjectsStore = defineStore("projects", () => {
 
       if (filters?.category) params.append("category", filters.category);
       if (filters?.search) params.append("search", filters.search);
+      if (filters?.active === false) params.append("active", "false");
 
       if (params.toString()) {
         url += `?${params.toString()}`;
