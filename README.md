@@ -1,127 +1,195 @@
-# Elite Web Designer
+# 🚀 Elite Designer
 
-Uma landing page moderna e responsiva para uma agência de desenvolvimento web, construída com Vue 3, Vite e Tailwind CSS.
+Um portfólio moderno e futurista para uma agência de web design, com dashboard administrativo completo para gerenciamento de projetos.
 
-## 🚀 Tecnologias Utilizadas
+![Tech Stack](https://img.shields.io/badge/Vue.js-3.5-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?style=for-the-badge&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind-3.4-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-20.x-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)
 
-- **Vue 3** - Framework JavaScript progressivo
-- **Vite** - Build tool rápido
-- **Tailwind CSS** - Framework CSS utilitário
-- **Mobile First** - Design responsivo priorizando dispositivos móveis
+## ✨ Funcionalidades
 
-## 📁 Estrutura do Projeto
+### 🎨 Site Público
+- **Design Futurista**: Interface moderna com glassmorphism, neon effects e animações suaves
+- **Hero Section**: Apresentação impactante com partículas animadas
+- **Portfólio Dinâmico**: Projetos carregados do banco de dados
+- **Seção de Serviços**: Cards interativos com efeitos hover
+- **Formulário de Contato**: Integração com WhatsApp
+- **Totalmente Responsivo**: Experiência perfeita em todos os dispositivos
 
-```
-elite-web-designer/
-├── src/
-│   ├── components/
-│   │   ├── sections/
-│   │   │   ├── CreativeBanner.vue
-│   │   │   ├── HeroSection.vue
-│   │   │   ├── ServicesSection.vue
-│   │   │   ├── ProjectsSection.vue
-│   │   │   ├── StatsSection.vue
-│   │   │   ├── ContactSection.vue
-│   │   │   └── FooterSection.vue
-│   │   ├── NavBar.vue
-│   │   └── FloatingWhatsApp.vue
-│   ├── App.vue
-│   ├── main.js
-│   └── style.css
-├── index.html
-├── package.json
-├── tailwind.config.js
-├── postcss.config.js
-└── vite.config.js
-```
+### 🔐 Dashboard Administrativo
+- **Autenticação JWT**: Login seguro com tokens
+- **Gerenciamento de Projetos**: CRUD completo com upload de imagens
+- **Filtros e Busca**: Fácil localização de projetos
+- **Toggle Status**: Ativar/desativar projetos rapidamente
+- **Estatísticas**: Visualização de métricas importantes
+- **Interface Intuitiva**: Design moderno e fácil de usar
 
-## 🎨 Recursos
+## 🛠️ Tecnologias
 
-- ✅ **Design Mobile First** - Totalmente responsivo
-- ✅ **Animações Suaves** - CSS animations e transitions
-- ✅ **Banner Promocional** - Banner criativo no topo
-- ✅ **Navegação Smooth** - Scroll suave entre seções
-- ✅ **Formulário de Contato** - Integrado com WhatsApp
-- ✅ **Botão WhatsApp Flutuante** - Acesso rápido ao contato
-- ✅ **Gradientes Animados** - Visual moderno e atrativo
-- ✅ **Cards Interativos** - Efeitos hover nos projetos
-- ✅ **SEO Otimizado** - Meta tags e estrutura semântica
+### Frontend
+- **Vue 3** com Composition API
+- **TypeScript** para tipagem segura
+- **Vue Router** para navegação
+- **Pinia** para gerenciamento de estado
+- **Tailwind CSS** para estilização
+- **Componentes UI** personalizados com glassmorphism
 
-## 🛠️ Instalação e Uso
+### Backend
+- **Node.js** com Express
+- **MySQL2** para banco de dados
+- **JWT** para autenticação
+- **bcryptjs** para hash de senhas
+- **Multer** para upload de arquivos
+- **CORS** habilitado
 
-1. **Clone o repositório:**
+## 📦 Instalação
+
+### Pré-requisitos
+- Node.js 18+
+- MySQL 8.0+
+- NPM ou Yarn
+
+### 1. Clone o repositório
 ```bash
-git clone https://github.com/seuusuario/elite-web-designer.git
-cd elite-web-designer
+git clone https://github.com/seu-usuario/elite-designer.git
+cd elite-designer
 ```
 
-2. **Instale as dependências:**
+### 2. Instale as dependências do frontend
 ```bash
 npm install
 ```
 
-3. **Execute o servidor de desenvolvimento:**
+### 3. Configure o banco de dados
 ```bash
+# Acesse o MySQL
+mysql -u root -p
+
+# Execute o script de schema
+source server/config/schema.sql
+```
+
+### 4. Configure as variáveis de ambiente
+```bash
+# Frontend
+cp .env.example .env
+
+# Backend
+cd server
+cp .env.example .env
+# Edite o arquivo .env com suas credenciais do MySQL
+```
+
+### 5. Instale as dependências do backend
+```bash
+cd server
+npm install
+cd ..
+```
+
+## 🚀 Executando o Projeto
+
+### Modo Desenvolvimento
+
+Execute ambos os comandos em terminais separados:
+
+```bash
+# Terminal 1 - Backend
+npm run server:dev
+
+# Terminal 2 - Frontend
 npm run dev
 ```
 
-4. **Build para produção:**
-```bash
-npm run build
+- Frontend: http://localhost:5173
+- Backend: http://localhost:3001
+- API Docs: http://localhost:3001/api/health
+
+### Acessar o Dashboard
+1. Acesse http://localhost:5173/admin/login
+2. Registre um novo usuário (primeiro acesso)
+3. Faça login com as credenciais criadas
+
+## 📁 Estrutura do Projeto
+
+```
+elite-designer/
+├── src/
+│   ├── components/
+│   │   ├── sections/       # Componentes de seção (Hero, Projects, etc)
+│   │   └── ui/             # Componentes UI reutilizáveis
+│   ├── layouts/            # Layouts (Default, Admin)
+│   ├── router/             # Configuração de rotas
+│   ├── stores/             # Pinia stores (Auth, Projects)
+│   ├── views/              # Páginas
+│   │   └── admin/          # Páginas do dashboard
+│   ├── style.css           # Estilos globais e variáveis CSS
+│   └── main.ts             # Entry point
+├── server/
+│   ├── config/             # Configurações (DB, Schema)
+│   ├── middleware/         # Middlewares (Auth)
+│   ├── routes/             # Rotas da API
+│   ├── uploads/            # Pasta de uploads
+│   └── app.js              # Entry point do servidor
+├── .env                    # Variáveis de ambiente frontend
+└── package.json
 ```
 
-## 📱 Responsividade
+## 🔌 API Endpoints
 
-O projeto utiliza breakpoints do Tailwind CSS:
+### Autenticação
+- `POST /api/auth/register` - Registrar novo usuário
+- `POST /api/auth/login` - Login (retorna JWT)
 
-- **Mobile**: < 640px
-- **Tablet**: 640px - 768px
-- **Desktop**: > 768px
-- **XS**: 475px (breakpoint customizado)
+### Projetos
+- `GET /api/projects` - Listar todos os projetos
+- `GET /api/projects/:id` - Obter projeto específico
+- `POST /api/projects` - Criar projeto (requer auth)
+- `PUT /api/projects/:id` - Atualizar projeto (requer auth)
+- `DELETE /api/projects/:id` - Deletar projeto (requer auth)
 
-## 🎨 Customização
+## 🎨 Design System
 
-### Cores e Gradientes
-As cores principais podem ser modificadas no arquivo `src/style.css`:
-
-```css
-.gradient-bg {
-  background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #f5576c, #4facfe, #00f2fe);
-}
-```
+### Cores
+- **Primary**: Purple (#7c3aed)
+- **Secondary**: Blue (#3b82f6)
+- **Accent**: Cyan (#22d3ee)
+- **Background**: Dark (#0a0a0f)
+- **Surface**: Glass (#12121a)
 
 ### Animações
-As animações customizadas estão configuradas no `tailwind.config.js`:
+- **fade-in**: Entrada suave
+- **slide-up**: Deslizar para cima
+- **scale-in**: Escala de entrada
+- **glow**: Efeito de brilho
+- **float**: Flutuação suave
 
-```javascript
-animation: {
-  'float': 'float 6s ease-in-out infinite',
-  'gradient': 'gradient 8s linear infinite',
-  'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-}
-```
+### Componentes UI
+- **GlassCard**: Cards com efeito glassmorphism
+- **NeonButton**: Botões com glow neon
+- **TechBadge**: Badges tecnológicos
+- **FloatingParticles**: Partículas animadas de fundo
 
-## 📞 Contato WhatsApp
+## 🔒 Segurança
 
-Para personalizar o número do WhatsApp, altere nos arquivos:
-- `src/components/FloatingWhatsApp.vue`
-- `src/components/sections/ContactSection.vue`
+- Senhas hasheadas com bcryptjs
+- Autenticação JWT com expiração
+- Proteção de rotas admin
+- Validação de uploads de imagens
+- CORS configurado
 
-Substitua `5511999999999` pelo seu número no formato internacional.
-
-## 🚀 Deploy
-
-O projeto pode ser facilmente deployado em:
-
-- **Vercel**: `vercel --prod`
-- **Netlify**: Conecte o repositório
-- **GitHub Pages**: Configure GitHub Actions
-- **Firebase Hosting**: `firebase deploy`
-
-## 📄 Licença
+## 📝 Licença
 
 Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 
+## 👨‍💻 Autor
+
+**Elite Designer** - [@elitedesigner](https://github.com/elitedesigner)
+
 ---
 
-Desenvolvido com ❤️ por Elite Web Designer
+<p align="center">
+  Feito com 💜 e muito ☕ em Araçatuba, SP
+</p>

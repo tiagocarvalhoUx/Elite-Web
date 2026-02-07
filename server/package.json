@@ -1,0 +1,33 @@
+{
+  "name": "portfolio-backend",
+  "version": "1.0.0",
+  "description": "Backend para sistema de portfólio de projetos",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "start:mock": "node app-mock.js",
+    "dev": "nodemon app.js",
+    "dev:mock": "nodemon app-mock.js",
+    "init-db": "mysql -u root -p < config/schema.sql"
+  },
+  "keywords": [
+    "portfolio",
+    "nodejs",
+    "express",
+    "mysql"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.6.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
+    "multer": "^1.4.5-lts.1",
+    "mysql2": "^3.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

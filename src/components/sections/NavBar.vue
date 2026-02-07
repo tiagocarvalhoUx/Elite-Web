@@ -1,139 +1,152 @@
 <template>
-  <nav class="fixed w-full z-40 glass-effect transition-all duration-300" :class="{ 'bg-white/95': scrolled }">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-14 sm:h-16">
+  <nav 
+    class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+    :class="isScrolled ? 'glass-dark py-3' : 'py-6 bg-transparent'"
+  >
+    <div class="container-futuristic">
+      <div class="flex items-center justify-between">
         <!-- Logo -->
-        <div class="flex items-center space-x-2 sm:space-x-3">
-          <div class="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center">
-            <span class="text-white font-bold text-lg sm:text-xl">WD</span>
+        <a href="#home" class="flex items-center gap-3 group">
+          <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-blue-500 flex items-center justify-center transform group-hover:scale-110 transition-transform animate-spin-slow neon-glow">
+            <span class="text-lg font-bold text-white">WD</span>
           </div>
-          <span class="text-xl text-gray-500 border-b-2 border-transparent font-bold">Elite Web Designer</span>
+          <span class="text-xl font-bold text-gradient hidden sm:block">Elite Designer</span>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-1">
+          <a 
+            v-for="item in navItems" 
+            :key="item.href"
+            :href="item.href"
+            class="px-4 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+            :class="activeSection === item.href.replace('#', '') ? 'text-purple-400 bg-purple-500/10' : ''"
+          >
+            {{ item.label }}
+          </a>
         </div>
-        
-        <!-- Desktop Menu -->
-        <div class=" hidden md:flex space-x-8">
-          <a href="#home" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Início</a>
-          <a href="#services" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Serviços</a>
-          <a href="#projects" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Projetos</a>
-          <a href="#contact" @click="scrollToSection" class="text-gray-700 hover:text-blue-600 transition-colors font-semibold">Contato</a>
+
+        <!-- CTA Button -->
+        <div class="hidden md:block">
+          <NeonButton 
+            href="#contact"
+            variant="primary"
+            size="sm"
+          >
+            Orçamento
+          </NeonButton>
         </div>
-        
+
         <!-- Mobile Menu Button -->
         <button 
-          @click="toggleMobileMenu" 
-          class="md:hidden p-2  "
-          aria-label="Menu"
+          @click="mobileMenuOpen = !mobileMenuOpen"
+          class="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
         >
-          <svg class="w-7 h-7 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path 
-              v-if="!mobileMenuOpen"
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M4 6h16M4 12h16M4 18h16"
-            ></path>
-            <path 
-              v-else
-              stroke-linecap="round" 
-              stroke-linejoin="round" 
-              stroke-width="2" 
-              d="M6 18L18 6M6 6l12 12"
-            ></path>
+          <svg v-if="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+          <svg v-else class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
           </svg>
         </button>
       </div>
-      
-      <!-- Mobile Menu Melhorado -->
-      <transition name="fade">
-        <div 
-          v-show="mobileMenuOpen" 
-          class="fixed inset-0 z-50 bg-black/10 backdrop-blur-sm flex flex-col items-center  justify-start pt-24 space-y-6 px-6"
-        >
-          <button
-            @click="toggleMobileMenu"
-            class="absolute top-6 right-6 text-white bg-black/30 rounded-full p-2 shadow-lg focus:outline-none"
-            aria-label="Fechar menu"
-          >
-            <svg class="w-8 h-8 " fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-            </svg>
-          </button>
+
+      <!-- Mobile Menu -->
+      <Transition 
+        enter-active-class="transition-all duration-300 ease-out"
+        enter-from-class="opacity-0 -translate-y-4"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition-all duration-200 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 -translate-y-4"
+      >
+        <div v-if="mobileMenuOpen" class="md:hidden mt-4 glass-dark rounded-2xl p-4 space-y-2">
           <a 
-            href="#home" 
-            @click="scrollToSection" 
-            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
+            v-for="item in navItems" 
+            :key="item.href"
+            :href="item.href"
+            @click="mobileMenuOpen = false"
+            class="block px-4 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-white/10 transition-all"
+            :class="activeSection === item.href.replace('#', '') ? 'text-purple-400 bg-purple-500/10' : ''"
           >
-            Início
+            {{ item.label }}
           </a>
-          <a 
-            href="#services" 
-            @click="scrollToSection" 
-            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
-          >
-            Serviços
-          </a>
-          <a 
-            href="#projects" 
-            @click="scrollToSection" 
-            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
-          >
-            Projetos
-          </a>
-          <a 
-            href="#contact" 
-            @click="scrollToSection" 
-            class="block text-2xl font-bold text-purple-300 hover:text-blue-300 transition-colors py-2 w-full text-center border border-blue-500 rounded-full bg-gray-400/20"
-          >
-            Contato
-          </a>
+          <div class="pt-2 border-t border-white/10">
+            <NeonButton 
+              href="#contact"
+              variant="primary"
+              size="sm"
+              block
+              @click="mobileMenuOpen = false"
+            >
+              Solicitar Orçamento
+            </NeonButton>
+          </div>
         </div>
-      </transition>
+      </Transition>
     </div>
   </nav>
 </template>
 
-<script>
-export default {
-  name: 'NavBar',
-  data() {
-    return {
-      mobileMenuOpen: false,
-      scrolled: false
-    }
-  },
-  mounted() {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeUnmount() {
-    window.removeEventListener('scroll', this.handleScroll)
-  },
-  methods: {
-    toggleMobileMenu() {
-      this.mobileMenuOpen = !this.mobileMenuOpen
-    },
-    scrollToSection(event) {
-      event.preventDefault()
-      const target = document.querySelector(event.target.getAttribute('href'))
-      if (target) {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'start'
-        })
+<script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+import NeonButton from '../ui/NeonButton.vue'
+
+const navItems = [
+  { href: '#home', label: 'Home' },
+  { href: '#services', label: 'Serviços' },
+  { href: '#projects', label: 'Projetos' },
+  { href: '#contact', label: 'Contato' }
+]
+
+const isScrolled = ref(false)
+const mobileMenuOpen = ref(false)
+const activeSection = ref('home')
+
+const handleScroll = () => {
+  isScrolled.value = window.scrollY > 50
+
+  // Update active section
+  const sections = navItems.map(item => item.href.replace('#', ''))
+  for (const section of sections.reverse()) {
+    const element = document.getElementById(section)
+    if (element) {
+      const rect = element.getBoundingClientRect()
+      if (rect.top <= 100) {
+        activeSection.value = section
+        break
       }
-      this.mobileMenuOpen = false
-    },
-    handleScroll() {
-      this.scrolled = window.scrollY > 100
     }
   }
 }
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll, { passive: true })
+  handleScroll()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll)
+})
 </script>
 
 <style scoped>
-.fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s;
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
-.fade-enter-from, .fade-leave-to {
-  opacity: 0;
+
+.animate-spin-slow {
+  animation: spin-slow 8s linear infinite;
+}
+
+.neon-glow {
+  box-shadow: 
+    0 0 10px rgba(139, 92, 246, 0.5),
+    0 0 20px rgba(59, 130, 246, 0.3);
 }
 </style>
