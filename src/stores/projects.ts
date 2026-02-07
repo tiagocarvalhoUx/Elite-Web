@@ -1,226 +1,229 @@
-import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
-import axios from 'axios'
+import { defineStore } from "pinia";
+import { ref, computed } from "vue";
+import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
-const API_BASE_URL = API_URL.replace(/\/api\/?$/, '')
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+const API_BASE_URL = API_URL.replace(/\/api\/?$/, "");
 const PLACEHOLDER_IMAGE_URL =
-  'data:image/svg+xml;utf8,' +
+  "data:image/svg+xml;utf8," +
   encodeURIComponent(
     '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">' +
       '<rect width="800" height="600" fill="#11131a"/>' +
       '<rect x="40" y="40" width="720" height="520" rx="24" ry="24" fill="#1a1d28" stroke="#2c3142" stroke-width="2"/>' +
       '<text x="400" y="315" font-family="Arial, sans-serif" font-size="28" fill="#8a94b2" text-anchor="middle">Sem imagem</text>' +
-    '</svg>'
-  )
+      "</svg>",
+  );
 
 export interface Project {
-  id?: number
-  title: string
-  description: string
-  image_url: string
-  project_link: string
-  category: string
-  is_active: boolean
-  created_at?: string
-  updated_at?: string
+  id?: number;
+  title: string;
+  description: string;
+  image_url: string;
+  project_link: string;
+  category: string;
+  is_active: boolean;
+  created_at?: string;
+  updated_at?: string;
 }
 
-interface ProjectsState {
-  projects: Project[]
-  currentProject: Project | null
-  loading: boolean
-  error: string | null
-}
-
-export const useProjectsStore = defineStore('projects', () => {
+export const useProjectsStore = defineStore("projects", () => {
   // State
-  const projects = ref<Project[]>([])
-  const currentProject = ref<Project | null>(null)
-  const loading = ref(false)
-  const error = ref<string | null>(null)
+  const projects = ref<Project[]>([]);
+  const currentProject = ref<Project | null>(null);
+  const loading = ref(false);
+  const error = ref<string | null>(null);
 
   // Getters
-  const activeProjects = computed(() => 
-    projects.value.filter(p => p.is_active)
-  )
+  const activeProjects = computed(() =>
+    projects.value.filter((p) => p.is_active),
+  );
 
   const projectsByCategory = computed(() => {
-    const grouped: Record<string, Project[]> = {}
-    activeProjects.value.forEach(project => {
+    const grouped: Record<string, Project[]> = {};
+    activeProjects.value.forEach((project) => {
       if (!grouped[project.category]) {
-        grouped[project.category] = []
+        grouped[project.category] = [];
       }
-      grouped[project.category].push(project)
-    })
-    return grouped
-  })
+      grouped[project.category].push(project);
+    });
+    return grouped;
+  });
 
   const categories = computed(() => {
-    const cats = new Set(projects.value.map(p => p.category))
-    return Array.from(cats).filter(Boolean)
-  })
+    const cats = new Set(projects.value.map((p) => p.category));
+    return Array.from(cats).filter(Boolean);
+  });
 
   // Actions
-  const fetchProjects = async (filters?: { category?: string; search?: string }): Promise<void> => {
-    loading.value = true
-    error.value = null
+  const fetchProjects = async (filters?: {
+    category?: string;
+    search?: string;
+  }): Promise<void> => {
+    loading.value = true;
+    error.value = null;
 
     try {
-      let url = `${API_URL}/projects`
-      const params = new URLSearchParams()
-      
-      if (filters?.category) params.append('category', filters.category)
-      if (filters?.search) params.append('search', filters.search)
-      
+      let url = `${API_URL}/projects`;
+      const params = new URLSearchParams();
+
+      if (filters?.category) params.append("category", filters.category);
+      if (filters?.search) params.append("search", filters.search);
+
       if (params.toString()) {
-        url += `?${params.toString()}`
+        url += `?${params.toString()}`;
       }
 
-      const response = await axios.get(url)
-      
+      const response = await axios.get(url);
+
       if (response.data.success) {
-        projects.value = response.data.data
+        projects.value = response.data.data;
       }
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Erro ao carregar projetos'
+      error.value = err.response?.data?.message || "Erro ao carregar projetos";
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const getProject = async (id: number): Promise<Project | null> => {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     try {
-      const response = await axios.get(`${API_URL}/projects/${id}`)
-      
+      const response = await axios.get(`${API_URL}/projects/${id}`);
+
       if (response.data.success) {
-        currentProject.value = response.data.data
-        return response.data.data
+        currentProject.value = response.data.data;
+        return response.data.data;
       }
-      return null
+      return null;
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Erro ao carregar projeto'
-      return null
+      error.value = err.response?.data?.message || "Erro ao carregar projeto";
+      return null;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const createProject = async (projectData: FormData): Promise<boolean> => {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     try {
       const response = await axios.post(`${API_URL}/projects`, projectData, {
         headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       if (response.data.success) {
-        projects.value.unshift(response.data.data)
-        return true
+        projects.value.unshift(response.data.data);
+        return true;
       }
-      return false
+      return false;
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Erro ao criar projeto'
-      return false
+      error.value = err.response?.data?.message || "Erro ao criar projeto";
+      return false;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
-  const updateProject = async (id: number, projectData: FormData): Promise<boolean> => {
-    loading.value = true
-    error.value = null
+  const updateProject = async (
+    id: number,
+    projectData: FormData,
+  ): Promise<boolean> => {
+    loading.value = true;
+    error.value = null;
 
     try {
-      const response = await axios.put(`${API_URL}/projects/${id}`, projectData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      })
+      const response = await axios.put(
+        `${API_URL}/projects/${id}`,
+        projectData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
 
       if (response.data.success) {
-        const index = projects.value.findIndex(p => p.id === id)
+        const index = projects.value.findIndex((p) => p.id === id);
         if (index !== -1) {
-          projects.value[index] = response.data.data
+          projects.value[index] = response.data.data;
         }
-        return true
+        return true;
       }
-      return false
+      return false;
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Erro ao atualizar projeto'
-      return false
+      error.value = err.response?.data?.message || "Erro ao atualizar projeto";
+      return false;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const deleteProject = async (id: number): Promise<boolean> => {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     try {
-      const response = await axios.delete(`${API_URL}/projects/${id}`)
+      const response = await axios.delete(`${API_URL}/projects/${id}`);
 
       if (response.data.success) {
-        projects.value = projects.value.filter(p => p.id !== id)
-        return true
+        projects.value = projects.value.filter((p) => p.id !== id);
+        return true;
       }
-      return false
+      return false;
     } catch (err: any) {
-      error.value = err.response?.data?.message || 'Erro ao deletar projeto'
-      return false
+      error.value = err.response?.data?.message || "Erro ao deletar projeto";
+      return false;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   const toggleProjectStatus = async (id: number): Promise<boolean> => {
-    const project = projects.value.find(p => p.id === id)
-    if (!project) return false
+    const project = projects.value.find((p) => p.id === id);
+    if (!project) return false;
 
-    const formData = new FormData()
-    formData.append('title', project.title)
-    formData.append('description', project.description)
-    formData.append('project_link', project.project_link)
-    formData.append('category', project.category)
-    formData.append('is_active', String(!project.is_active))
+    const formData = new FormData();
+    formData.append("title", project.title);
+    formData.append("description", project.description);
+    formData.append("project_link", project.project_link);
+    formData.append("category", project.category);
+    formData.append("is_active", String(!project.is_active));
 
-    return updateProject(id, formData)
-  }
+    return updateProject(id, formData);
+  };
 
   const clearError = () => {
-    error.value = null
-  }
+    error.value = null;
+  };
 
   const clearCurrentProject = () => {
-    currentProject.value = null
-  }
+    currentProject.value = null;
+  };
 
   const getImageUrl = (imageUrl?: string): string => {
-    if (!imageUrl) return PLACEHOLDER_IMAGE_URL
+    if (!imageUrl) return PLACEHOLDER_IMAGE_URL;
 
-    if (imageUrl.startsWith('http://') || imageUrl.startsWith('https://')) {
-      return imageUrl
+    if (imageUrl.startsWith("http://") || imageUrl.startsWith("https://")) {
+      return imageUrl;
     }
 
-    const normalized = imageUrl.startsWith('/') ? imageUrl : `/${imageUrl}`
+    const normalized = imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`;
 
-    if (normalized.startsWith('/uploads/')) {
-      return `${API_BASE_URL}${normalized}`
+    if (normalized.startsWith("/uploads/")) {
+      return `${API_BASE_URL}${normalized}`;
     }
 
-    if (normalized.startsWith('/public/')) {
-      return normalized.replace('/public', '')
+    if (normalized.startsWith("/public/")) {
+      return normalized.replace("/public", "");
     }
 
-    return `${API_BASE_URL}/uploads${normalized}`
-  }
+    return `${API_BASE_URL}/uploads${normalized}`;
+  };
 
   return {
     projects,
@@ -238,6 +241,6 @@ export const useProjectsStore = defineStore('projects', () => {
     toggleProjectStatus,
     clearError,
     clearCurrentProject,
-    getImageUrl
-  }
-})
+    getImageUrl,
+  };
+});
