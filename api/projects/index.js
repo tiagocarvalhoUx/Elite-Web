@@ -1,5 +1,27 @@
 import { initDb } from "../_lib/db.js";
 import { authenticateToken, setCors } from "../_lib/auth.js";
+import multer from "multer";
+import path from "path";
+
+// Configuração do Multer para upload de imagens
+const storage = multer.memoryStorage(); // Usar memory para Vercel serverless
+
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true);
+  } else {
+    cb(new Error('Tipo de arquivo não suportado. Apenas JPEG, PNG, GIF e WEBP são permitidos.'), false);
+  }
+};
+
+const upload = multer({
+  storage,
+  fileFilter,
+  limits: {
+    fileSize: 5 * 1024 * 1024 // 5MB
+  }
+});
 
 // Projetos padrão para popular o banco na primeira vez
 const DEFAULT_PROJECTS = [
