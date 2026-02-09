@@ -64,6 +64,13 @@ export default async function handler(req, res) {
       }
 
       const current = existing.rows[0];
+
+      // Parse req.body
+      let body = req.body;
+      if (typeof body === 'string') {
+        body = JSON.parse(body);
+      }
+
       const {
         title,
         description,
@@ -71,7 +78,7 @@ export default async function handler(req, res) {
         project_link,
         category,
         is_active,
-      } = req.body;
+      } = body;
 
       await db.execute({
         sql: `UPDATE projects SET
