@@ -1,10 +1,13 @@
 {
-  "name": "elite-designer",
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
-  "framework": "vue",
+  "framework": "vite",
+  "functions": {
+    "api/**/*.js": {
+      "runtime": "@vercel/node@3"
+    }
+  },
   "rewrites": [
-    { "source": "/api/(.*)", "destination": "/api/$1" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
