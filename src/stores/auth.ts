@@ -2,7 +2,11 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import axios from "axios";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+// Normaliza a URL da API removendo barras finais duplicadas
+const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
+const API_URL = rawApiUrl.replace(/\/+$/, ""); // Remove trailing slashes
+
+console.log("[Auth] API_URL:", API_URL); // Debug - remover depois
 
 interface User {
   id: number;
