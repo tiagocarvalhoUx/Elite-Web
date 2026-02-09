@@ -160,6 +160,46 @@ export default async function handler(req, res) {
           .json({ success: false, message: auth.error });
       }
 
+      let projectData;
+
+      // Verificar se é FormData (upload) ou JSON
+      if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
+        // Usar multer para FormData
+        console.log("Processando como FormData");
+        try {
+          await new Promise((resolve, reject) => {
+            upload.single('image')(req, res, (err) => {
+              if (err) reject(err);
+              else resolve();
+            });
+          });
+          projectData = {
+            title: req.body.title,
+            description: req.body.description,
+            image_url: req.file ? `/uploads/${req.file.filename}` : req.body.image_url,
+            project_link: req.body.project_link,
+            category: req.body.category,
+            is_active: req.body.is_active,
+          };
+          console.log("FormData parsed:", projectData);
+        } catch (uploadErr) {
+          console.error("Erro no upload:", uploadErr);
+          return res.status(400).json({
+            success: false,
+            message: "Erro no upload da imagem",
+          });
+        }
+      } else {
+        // JSON
+        console.log("Processando como JSON");
+        let body = req.body;
+        if (typeof body === 'string') {
+          body = JSON.parse(body);
+        }
+        projectData = body;
+        console.log("JSON parsed:", projectData);
+      }
+
       const {
         title,
         description,
@@ -167,8 +207,9 @@ export default async function handler(req, res) {
         project_link,
         category,
         is_active,
-      } = req.body;
-      console.log("Request body:", { title, description, image_url, project_link, category, is_active });
+      } = projectData;
+
+      console.log("Dados extraídos:", { title, description, image_url, project_link, category, is_active });
 
       if (!title) {
         console.log("Erro: Título obrigatório");
