@@ -107,15 +107,19 @@ export const useProjectsStore = defineStore("projects", () => {
     }
   };
 
-  const createProject = async (projectData: FormData): Promise<boolean> => {
+  const createProject = async (
+    projectData: FormData | Record<string, any>,
+  ): Promise<boolean> => {
     loading.value = true;
     error.value = null;
 
     try {
+      const isFormData = projectData instanceof FormData;
+      const headers = isFormData
+        ? { "Content-Type": "multipart/form-data" }
+        : { "Content-Type": "application/json" };
       const response = await axios.post(`${API_URL}/projects`, projectData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+        headers,
       });
 
       if (response.data.success) {
@@ -133,19 +137,21 @@ export const useProjectsStore = defineStore("projects", () => {
 
   const updateProject = async (
     id: number,
-    projectData: FormData,
+    projectData: FormData | Record<string, any>,
   ): Promise<boolean> => {
     loading.value = true;
     error.value = null;
 
     try {
+      const isFormData = projectData instanceof FormData;
+      const headers = isFormData
+        ? { "Content-Type": "multipart/form-data" }
+        : { "Content-Type": "application/json" };
       const response = await axios.put(
         `${API_URL}/projects/${id}`,
         projectData,
         {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
+          headers,
         },
       );
 

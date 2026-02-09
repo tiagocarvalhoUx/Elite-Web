@@ -1,8 +1,13 @@
-// Versão temporária sem banco de dados - apenas para testes
+// Versão temporária sem banco de dados - com persistência em JSON
 const express = require("express");
 const multer = require("multer");
 const path = require("path");
+const fs = require("fs");
 const { authenticateToken } = require("../middleware/auth");
+
+// Caminho para o arquivo de dados persistentes
+const DATA_FILE = path.join(__dirname, "../data/projects.json");
+const DATA_DIR = path.join(__dirname, "../data");
 
 const router = express.Router();
 
@@ -52,8 +57,8 @@ const upload = multer({
 const getPlaceholderUrl = (id) =>
   `https://picsum.photos/seed/project${id}/800/600`;
 
-// Todos os projetos do portfólio
-let projects = [
+// Projetos padrão iniciais
+const DEFAULT_PROJECTS = [
   {
     id: 1,
     title: "MRV House",
@@ -164,7 +169,53 @@ let projects = [
   },
 ];
 
-let nextId = 10;
+// Funções para persistência dos dados
+const ensureDataDir = () => {
+  if (!fs.existsSync(DATA_DIR)) {
+    fs.mkdirSync(DATA_DIR, { recursive: true });
+    console.log("📁 Diretório de dados criado:", DATA_DIR);
+  }
+};
+
+const loadProjects = () => {
+  ensureDataDir();
+  try {
+    if (fs.existsSync(DATA_FILE)) {
+      const data = fs.readFileSync(DATA_FILE, "utf8");
+      const parsed = JSON.parse(data);
+      console.log(
+        `📂 ${parsed.projects.length} projetos carregados do arquivo`,
+      );
+      return parsed;
+    }
+  } catch (error) {
+    console.error(
+      "⚠️ Erro ao carregar projetos, usando padrão:",
+      error.message,
+    );
+  }
+  // Se não existir arquivo ou houver erro, usar projetos padrão
+  return { projects: [...DEFAULT_PROJECTS], nextId: 10 };
+};
+
+const saveProjects = () => {
+  ensureDataDir();
+  try {
+    fs.writeFileSync(
+      DATA_FILE,
+      JSON.stringify({ projects, nextId }, null, 2),
+      "utf8",
+    );
+    console.log(`💾 ${projects.length} projetos salvos no arquivo`);
+  } catch (error) {
+    console.error("❌ Erro ao salvar projetos:", error.message);
+  }
+};
+
+// Carregar projetos persistidos ou usar padrão
+const loadedData = loadProjects();
+let projects = loadedData.projects;
+let nextId = loadedData.nextId;
 
 // GET /api/projects - Listar todos
 router.get("/", async (req, res) => {
@@ -244,6 +295,7 @@ router.post(
       };
 
       projects.push(newProject);
+      saveProjects(); // Persistir no arquivo
 
       console.log("✅ Projeto criado:", newProject);
 
@@ -302,6 +354,7 @@ router.put(
       };
 
       console.log("✅ Projeto atualizado:", projects[index]);
+      saveProjects(); // Persistir no arquivo
 
       res.json({
         success: true,
@@ -328,6 +381,7 @@ router.delete("/:id", authenticateToken, async (req, res) => {
     }
 
     projects.splice(index, 1);
+    saveProjects(); // Persistir no arquivo
 
     res.json({ success: true, message: "Projeto deletado com sucesso" });
   } catch (error) {

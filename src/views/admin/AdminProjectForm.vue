@@ -38,7 +38,56 @@
       <!-- Image Upload -->
       <GlassCard variant="dark" :animated="true" title="Imagem do Projeto">
         <div class="space-y-4">
+          <!-- Tabs: Upload ou URL -->
+          <div class="flex gap-2 mb-4">
+            <button
+              type="button"
+              @click="imageMode = 'upload'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              :class="
+                imageMode === 'upload'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-white/10 text-gray-400 hover:bg-white/20'
+              "
+            >
+              Upload de Arquivo
+            </button>
+            <button
+              type="button"
+              @click="imageMode = 'url'"
+              class="px-4 py-2 rounded-lg text-sm font-medium transition-colors"
+              :class="
+                imageMode === 'url'
+                  ? 'bg-purple-600 text-white'
+                  : 'bg-white/10 text-gray-400 hover:bg-white/20'
+              "
+            >
+              URL da Imagem
+            </button>
+          </div>
+
+          <!-- Modo URL -->
+          <div v-if="imageMode === 'url'" class="space-y-3">
+            <input
+              v-model="form.image_url"
+              type="url"
+              class="w-full px-4 py-3 bg-black/30 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-500"
+              placeholder="https://exemplo.com/imagem.jpg"
+              @input="onImageUrlInput"
+            />
+            <div v-if="form.image_url && imagePreview" class="relative">
+              <img
+                :src="imagePreview"
+                alt="Preview"
+                class="w-full h-64 object-cover rounded-lg"
+                @error="onImageUrlError"
+              />
+            </div>
+          </div>
+
+          <!-- Modo Upload -->
           <div
+            v-else
             class="relative border-2 border-dashed rounded-xl overflow-hidden transition-all"
             :class="
               imagePreview
@@ -289,6 +338,7 @@ const props = defineProps<{
 }>();
 
 const isEditing = computed(() => !!props.id);
+const imageMode = ref<"upload" | "url">("url");
 
 const form = ref<Project>({
   title: "",
@@ -303,6 +353,19 @@ const errors = ref<Record<string, string>>({});
 const imageFile = ref<File | null>(null);
 const imagePreview = ref("");
 const fileInput = ref<HTMLInputElement>();
+
+const onImageUrlInput = () => {
+  errors.value.image = "";
+  if (form.value.image_url && isValidUrl(form.value.image_url)) {
+    imagePreview.value = form.value.image_url;
+  } else {
+    imagePreview.value = "";
+  }
+};
+
+const onImageUrlError = () => {
+  errors.value.image = "Não foi possível carregar a imagem desta URL";
+};
 
 const handleImageChange = (e: Event) => {
   const target = e.target as HTMLInputElement;
@@ -336,6 +399,7 @@ const handleImageChange = (e: Event) => {
 const removeImage = () => {
   imageFile.value = null;
   imagePreview.value = "";
+  form.value.image_url = "";
   if (fileInput.value) {
     fileInput.value.value = "";
   }
@@ -362,8 +426,17 @@ const validate = () => {
     errors.value.project_link = "Link inválido";
   }
 
-  if (!isEditing.value && !imageFile.value) {
-    errors.value.image = "Imagem é obrigatória";
+  // Validação de imagem depende do modo
+  if (imageMode.value === "url") {
+    if (!isEditing.value && !form.value.image_url.trim()) {
+      errors.value.image = "URL da imagem é obrigatória";
+    } else if (form.value.image_url && !isValidUrl(form.value.image_url)) {
+      errors.value.image = "URL da imagem inválida";
+    }
+  } else {
+    if (!isEditing.value && !imageFile.value) {
+      errors.value.image = "Imagem é obrigatória";
+    }
   }
 
   return Object.keys(errors.value).length === 0;
@@ -381,23 +454,39 @@ const isValidUrl = (url: string) => {
 const handleSubmit = async () => {
   if (!validate()) return;
 
-  const formData = new FormData();
-  formData.append("title", form.value.title);
-  formData.append("description", form.value.description);
-  formData.append("category", form.value.category);
-  formData.append("project_link", form.value.project_link);
-  formData.append("is_active", String(form.value.is_active));
-
-  if (imageFile.value) {
-    formData.append("image", imageFile.value);
-  }
-
   let success: boolean;
 
-  if (isEditing.value && props.id) {
-    success = await projectsStore.updateProject(Number(props.id), formData);
+  if (imageMode.value === "url" || !imageFile.value) {
+    // Enviar como JSON (funciona na Vercel)
+    const jsonData = {
+      title: form.value.title,
+      description: form.value.description,
+      category: form.value.category,
+      project_link: form.value.project_link,
+      is_active: form.value.is_active,
+      image_url: form.value.image_url || imagePreview.value,
+    };
+
+    if (isEditing.value && props.id) {
+      success = await projectsStore.updateProject(Number(props.id), jsonData);
+    } else {
+      success = await projectsStore.createProject(jsonData);
+    }
   } else {
-    success = await projectsStore.createProject(formData);
+    // Enviar como FormData (upload de arquivo - funciona apenas local)
+    const formData = new FormData();
+    formData.append("title", form.value.title);
+    formData.append("description", form.value.description);
+    formData.append("category", form.value.category);
+    formData.append("project_link", form.value.project_link);
+    formData.append("is_active", String(form.value.is_active));
+    formData.append("image", imageFile.value);
+
+    if (isEditing.value && props.id) {
+      success = await projectsStore.updateProject(Number(props.id), formData);
+    } else {
+      success = await projectsStore.createProject(formData);
+    }
   }
 
   if (success) {
@@ -412,6 +501,10 @@ onMounted(async () => {
     if (project) {
       form.value = { ...project };
       imagePreview.value = project.image_url;
+      // Se já tem URL de imagem, usar modo URL
+      if (project.image_url && isValidUrl(project.image_url)) {
+        imageMode.value = "url";
+      }
     } else {
       router.push("/admin/projects");
     }

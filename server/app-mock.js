@@ -59,7 +59,7 @@ app.use((err, req, res, next) => {
 // Iniciar servidor
 app.listen(PORT, "0.0.0.0", () => {
   console.log(`🚀 Servidor rodando na porta ${PORT}`);
-  console.log(`⚠️  MODO MOCK: Dados em memória (serão perdidos ao reiniciar)`);
+  console.log(`💾 MODO MOCK: Dados salvos em server/data/projects.json`);
   console.log(`🔑 Auth API: http://0.0.0.0:${PORT}/api/auth`);
   console.log(`📂 Projects API: http://0.0.0.0:${PORT}/api/projects`);
   console.log(`❤️ Health Check: http://0.0.0.0:${PORT}/api/health`);
