@@ -89,7 +89,27 @@
       "category": "Food & Drink",
       "is_active": true,
       "created_at": "2024-03-01T15:30:00Z"
+    },
+    {
+      "id": 11,
+      "title": "Pomodoro IA",
+      "description": "Pomodoro IA",
+      "image_url": "http://localhost:3001/uploads/project-1770604581619-420890032.png",
+      "project_link": "https://pomodoroai.vercel.app/",
+      "category": "Serviços",
+      "is_active": true,
+      "created_at": "2026-02-09T02:36:21.700Z"
+    },
+    {
+      "id": 12,
+      "title": "Império Bebidas",
+      "description": "Império Bebidas",
+      "image_url": "http://localhost:3001/uploads/project-1770604623035-267887504.png",
+      "project_link": "https://imperio-bebidas.vercel.app/tabs",
+      "category": "Serviços",
+      "is_active": true,
+      "created_at": "2026-02-09T02:37:03.045Z"
     }
   ],
-  "nextId": 11
+  "nextId": 13
 }
