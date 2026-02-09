@@ -2,9 +2,13 @@ import { defineStore } from "pinia";
 import { ref, computed } from "vue";
 import axios from "axios";
 
-// Normaliza a URL da API removendo barras finais duplicadas
+// Normaliza a URL da API
 const rawApiUrl = import.meta.env.VITE_API_URL || "http://localhost:3001/api";
-const API_URL = rawApiUrl.replace(/\/+$/, ""); // Remove trailing slashes
+// Remove trailing slashes e garante que começa com / se não for http
+let API_URL = rawApiUrl.replace(/\/+$/, "");
+if (!API_URL.startsWith("http") && !API_URL.startsWith("/")) {
+  API_URL = "/" + API_URL;
+}
 
 console.log("[Auth] API_URL:", API_URL); // Debug - remover depois
 
