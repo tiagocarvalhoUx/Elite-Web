@@ -122,7 +122,6 @@ export const useProjectsStore = defineStore("projects", () => {
     error.value = null;
 
     try {
-      const isFormData = projectData instanceof FormData;
       // Não precisa definir headers - axios usa defaults (inclui Authorization)
       // Para FormData, axios detecta automaticamente o Content-Type
       const response = await axios.post(`${API_URL}/projects`, projectData);
