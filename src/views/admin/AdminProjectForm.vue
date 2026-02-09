@@ -72,9 +72,10 @@
               v-model="form.image_url"
               type="url"
               class="w-full px-4 py-3 bg-black/30 border border-white/10 rounded-lg focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-white placeholder-gray-500"
-              placeholder="https://exemplo.com/imagem.jpg"
+              placeholder="https://images.unsplash.com/..."
               @input="onImageUrlInput"
             />
+            <p class="text-xs text-gray-500">Use URLs do Unsplash, Pexels ou similar</p>
             <div v-if="form.image_url && imagePreview" class="relative">
               <img
                 :src="imagePreview"
