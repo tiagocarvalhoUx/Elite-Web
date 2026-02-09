@@ -172,11 +172,8 @@ export default async function handler(req, res) {
 
     // POST /api/projects - Criar projeto (protegido)
     if (req.method === "POST") {
-      console.log("POST /api/projects - Iniciando");
       const auth = authenticateToken(req);
-      console.log("Auth result:", auth);
       if (auth.error) {
-        console.log("Auth error:", auth.error);
         return res
           .status(auth.status)
           .json({ success: false, message: auth.error });
@@ -187,7 +184,6 @@ export default async function handler(req, res) {
       // Verificar se é FormData (upload) ou JSON
       if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
         // Usar multer para FormData
-        console.log("Processando como FormData");
         try {
           await new Promise((resolve, reject) => {
             upload.single('image')(req, res, (err) => {
@@ -198,14 +194,12 @@ export default async function handler(req, res) {
           projectData = {
             title: req.body.title,
             description: req.body.description,
-            image_url: req.file ? `/uploads/${req.file.filename}` : req.body.image_url,
+            image_url: req.file ? `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}` : req.body.image_url,
             project_link: req.body.project_link,
             category: req.body.category,
             is_active: req.body.is_active,
           };
-          console.log("FormData parsed:", projectData);
         } catch (uploadErr) {
-          console.error("Erro no upload:", uploadErr);
           return res.status(400).json({
             success: false,
             message: "Erro no upload da imagem",
@@ -213,13 +207,11 @@ export default async function handler(req, res) {
         }
       } else {
         // JSON
-        console.log("Processando como JSON");
         let body = req.body;
         if (typeof body === 'string') {
           body = JSON.parse(body);
         }
         projectData = body;
-        console.log("JSON parsed:", projectData);
       }
 
       const {
@@ -231,58 +223,43 @@ export default async function handler(req, res) {
         is_active,
       } = projectData;
 
-      console.log("Dados extraídos:", { title, description, image_url, project_link, category, is_active });
-
       if (!title) {
-        console.log("Erro: Título obrigatório");
         return res.status(400).json({
           success: false,
           message: "Título é obrigatório",
         });
       }
 
-      try {
-        console.log("Executando INSERT");
-        const result = await db.execute({
-          sql: `INSERT INTO projects (title, description, image_url, project_link, category, is_active)
-                VALUES (?, ?, ?, ?, ?, ?)`,
-          args: [
-            title,
-            description || null,
-            image_url || null,
-            project_link || null,
-            category || null,
-            is_active !== false && is_active !== "false" ? 1 : 0,
-          ],
-        });
-        console.log("INSERT result:", result);
+      const result = await db.execute({
+        sql: `INSERT INTO projects (title, description, image_url, project_link, category, is_active)
+              VALUES (?, ?, ?, ?, ?, ?)`,
+        args: [
+          title,
+          description || null,
+          image_url || null,
+          project_link || null,
+          category || null,
+          is_active !== false && is_active !== "false" ? 1 : 0,
+        ],
+      });
 
-        const newProject = await db.execute({
-          sql: "SELECT * FROM projects WHERE id = ?",
-          args: [Number(result.lastInsertRowid)],
-        });
-        console.log("SELECT result:", newProject);
+      const newProject = await db.execute({
+        sql: "SELECT * FROM projects WHERE id = ?",
+        args: [Number(result.lastInsertRowid)],
+      });
 
-        const project = {
-          ...newProject.rows[0],
-          is_active:
-            newProject.rows[0].is_active === 1 ||
-            newProject.rows[0].is_active === true,
-        };
+      const project = {
+        ...newProject.rows[0],
+        is_active:
+          newProject.rows[0].is_active === 1 ||
+          newProject.rows[0].is_active === true,
+      };
 
-        console.log("Projeto criado:", project);
-        return res.status(201).json({
-          success: true,
-          message: "Projeto criado com sucesso",
-          data: project,
-        });
-      } catch (dbError) {
-        console.error("Erro no banco:", dbError);
-        return res.status(500).json({
-          success: false,
-          message: "Erro ao salvar no banco",
-        });
-      }
+      return res.status(201).json({
+        success: true,
+        message: "Projeto criado com sucesso",
+        data: project,
+      });
     }
 
     return res
