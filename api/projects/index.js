@@ -150,8 +150,11 @@ export default async function handler(req, res) {
 
     // POST /api/projects - Criar projeto (protegido)
     if (req.method === "POST") {
+      console.log("POST /api/projects - Iniciando");
       const auth = authenticateToken(req);
+      console.log("Auth result:", auth);
       if (auth.error) {
+        console.log("Auth error:", auth.error);
         return res
           .status(auth.status)
           .json({ success: false, message: auth.error });
@@ -165,44 +168,58 @@ export default async function handler(req, res) {
         category,
         is_active,
       } = req.body;
+      console.log("Request body:", { title, description, image_url, project_link, category, is_active });
 
       if (!title) {
+        console.log("Erro: Título obrigatório");
         return res.status(400).json({
           success: false,
           message: "Título é obrigatório",
         });
       }
 
-      const result = await db.execute({
-        sql: `INSERT INTO projects (title, description, image_url, project_link, category, is_active)
-              VALUES (?, ?, ?, ?, ?, ?)`,
-        args: [
-          title,
-          description || null,
-          image_url || null,
-          project_link || null,
-          category || null,
-          is_active !== false && is_active !== "false" ? 1 : 0,
-        ],
-      });
+      try {
+        console.log("Executando INSERT");
+        const result = await db.execute({
+          sql: `INSERT INTO projects (title, description, image_url, project_link, category, is_active)
+                VALUES (?, ?, ?, ?, ?, ?)`,
+          args: [
+            title,
+            description || null,
+            image_url || null,
+            project_link || null,
+            category || null,
+            is_active !== false && is_active !== "false" ? 1 : 0,
+          ],
+        });
+        console.log("INSERT result:", result);
 
-      const newProject = await db.execute({
-        sql: "SELECT * FROM projects WHERE id = ?",
-        args: [Number(result.lastInsertRowid)],
-      });
+        const newProject = await db.execute({
+          sql: "SELECT * FROM projects WHERE id = ?",
+          args: [Number(result.lastInsertRowid)],
+        });
+        console.log("SELECT result:", newProject);
 
-      const project = {
-        ...newProject.rows[0],
-        is_active:
-          newProject.rows[0].is_active === 1 ||
-          newProject.rows[0].is_active === true,
-      };
+        const project = {
+          ...newProject.rows[0],
+          is_active:
+            newProject.rows[0].is_active === 1 ||
+            newProject.rows[0].is_active === true,
+        };
 
-      return res.status(201).json({
-        success: true,
-        message: "Projeto criado com sucesso",
-        data: project,
-      });
+        console.log("Projeto criado:", project);
+        return res.status(201).json({
+          success: true,
+          message: "Projeto criado com sucesso",
+          data: project,
+        });
+      } catch (dbError) {
+        console.error("Erro no banco:", dbError);
+        return res.status(500).json({
+          success: false,
+          message: "Erro ao salvar no banco",
+        });
+      }
     }
 
     return res

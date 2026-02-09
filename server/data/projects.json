@@ -109,7 +109,27 @@
       "category": "Serviços",
       "is_active": true,
       "created_at": "2026-02-09T02:37:03.045Z"
+    },
+    {
+      "id": 13,
+      "title": "Teste Projeto",
+      "description": "Descri��o teste",
+      "image_url": "https://images.unsplash.com/test.jpg",
+      "project_link": "https://teste.com",
+      "category": "Teste",
+      "is_active": true,
+      "created_at": "2026-02-09T06:37:28.674Z"
+    },
+    {
+      "id": 14,
+      "title": "Teste Projeto",
+      "description": "Descri��o teste",
+      "image_url": "https://images.unsplash.com/test.jpg",
+      "project_link": "https://teste.com",
+      "category": "Teste",
+      "is_active": true,
+      "created_at": "2026-02-09T06:43:06.949Z"
     }
   ],
-  "nextId": 13
+  "nextId": 15
 }

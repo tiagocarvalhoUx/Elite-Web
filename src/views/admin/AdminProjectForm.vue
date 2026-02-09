@@ -75,7 +75,9 @@
               placeholder="https://images.unsplash.com/..."
               @input="onImageUrlInput"
             />
-            <p class="text-xs text-gray-500">Use URLs do Unsplash, Pexels ou similar</p>
+            <p class="text-xs text-gray-500">
+              Use URLs do Unsplash, Pexels ou similar
+            </p>
             <div v-if="form.image_url && imagePreview" class="relative">
               <img
                 :src="imagePreview"
