@@ -220,6 +220,11 @@ export const useProjectsStore = defineStore("projects", () => {
       return imageUrl;
     }
 
+    // Se for base64, retorna direto
+    if (imageUrl.startsWith("data:image/")) {
+      return imageUrl;
+    }
+
     const normalized = imageUrl.startsWith("/") ? imageUrl : `/${imageUrl}`;
 
     if (normalized.startsWith("/uploads/")) {
