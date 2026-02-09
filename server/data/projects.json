@@ -1,0 +1,95 @@
+{
+  "projects": [
+    {
+      "id": 1,
+      "title": "MRV House",
+      "description": "Site imobiliário moderno com busca avançada de imóveis e interface elegante",
+      "image_url": "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+      "project_link": "https://mrv-house.vercel.app/",
+      "category": "Imobiliário",
+      "is_active": true,
+      "created_at": "2024-01-15T10:00:00Z"
+    },
+    {
+      "id": 2,
+      "title": "Pet Shop",
+      "description": "E-commerce completo para pet shop com agendamento e catálogo de produtos",
+      "image_url": "https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=800",
+      "project_link": "https://petshop-chi.vercel.app/",
+      "category": "E-commerce",
+      "is_active": true,
+      "created_at": "2024-01-20T14:30:00Z"
+    },
+    {
+      "id": 3,
+      "title": "Coffee Web",
+      "description": "Landing page elegante para cafeteria artesanal com cardápio digital",
+      "image_url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800",
+      "project_link": "https://coffe-web-henna.vercel.app/",
+      "category": "Landing Page",
+      "is_active": true,
+      "created_at": "2024-02-01T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "title": "Marcenaria",
+      "description": "Site institucional para marcenaria com galeria de trabalhos e orçamentos",
+      "image_url": "https://images.unsplash.com/photo-1558997519-83ea9252edf8?w=800",
+      "project_link": "https://marcenaria-vue.vercel.app/",
+      "category": "Institucional",
+      "is_active": true,
+      "created_at": "2024-02-05T11:00:00Z"
+    },
+    {
+      "id": 5,
+      "title": "Reza Vela",
+      "description": "E-commerce de velas artesanais com aromaterapia e produtos premium",
+      "image_url": "https://images.unsplash.com/photo-1602607688655-94e4730c5f2e?w=800",
+      "project_link": "https://reza-vela.vercel.app/",
+      "category": "E-commerce",
+      "is_active": true,
+      "created_at": "2024-02-10T16:45:00Z"
+    },
+    {
+      "id": 6,
+      "title": "Caetano Hidráulica",
+      "description": "Site corporativo para empresa de serviços hidráulicos com contato direto",
+      "image_url": "https://images.unsplash.com/photo-1585704032915-c3400ca199e7?w=800",
+      "project_link": "https://caetano-hidraulica.vercel.app/",
+      "category": "Serviços",
+      "is_active": true,
+      "created_at": "2024-02-15T08:30:00Z"
+    },
+    {
+      "id": 7,
+      "title": "Burger Layout",
+      "description": "Cardápio digital para hamburgueria com design moderno e pedidos online",
+      "image_url": "https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=800",
+      "project_link": "https://cardapio-hambuguer-three.vercel.app/",
+      "category": "Food & Drink",
+      "is_active": true,
+      "created_at": "2024-02-20T13:20:00Z"
+    },
+    {
+      "id": 8,
+      "title": "Barbearia",
+      "description": "Site institucional para barbearia com agendamento de horários e serviços",
+      "image_url": "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=800",
+      "project_link": "https://barbearia-react-eight.vercel.app/",
+      "category": "Beleza",
+      "is_active": true,
+      "created_at": "2024-02-25T10:00:00Z"
+    },
+    {
+      "id": 9,
+      "title": "Faster Food",
+      "description": "Delivery de comidas rápidas com cardápio interativo e promoções",
+      "image_url": "https://images.unsplash.com/photo-1561758033-d9a63f80764a?w=800",
+      "project_link": "https://faster-food-omega.vercel.app/",
+      "category": "Food & Drink",
+      "is_active": true,
+      "created_at": "2024-03-01T15:30:00Z"
+    }
+  ],
+  "nextId": 11
+}
