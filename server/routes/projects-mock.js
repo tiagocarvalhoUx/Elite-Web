@@ -274,8 +274,14 @@ router.post(
   upload.single("image"),
   async (req, res) => {
     try {
-      const { title, description, project_link, category, is_active, image_url } =
-        req.body;
+      const {
+        title,
+        description,
+        project_link,
+        category,
+        is_active,
+        image_url,
+      } = req.body;
 
       // URL da imagem: prioridade para upload, depois URL do body, depois placeholder
       let imageUrl = "https://via.placeholder.com/800x600?text=Sem+Imagem";
@@ -329,8 +335,14 @@ router.put(
           .json({ success: false, message: "Projeto não encontrado" });
       }
 
-      const { title, description, project_link, category, is_active, image_url } =
-        req.body;
+      const {
+        title,
+        description,
+        project_link,
+        category,
+        is_active,
+        image_url,
+      } = req.body;
 
       // Se tiver nova imagem, usar ela (upload ou URL do body)
       let imageUrl = projects[index].image_url;
