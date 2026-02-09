@@ -123,12 +123,9 @@ export const useProjectsStore = defineStore("projects", () => {
 
     try {
       const isFormData = projectData instanceof FormData;
-      const headers = isFormData
-        ? { "Content-Type": "multipart/form-data" }
-        : { "Content-Type": "application/json" };
-      const response = await axios.post(`${API_URL}/projects`, projectData, {
-        headers,
-      });
+      // Não precisa definir headers - axios usa defaults (inclui Authorization)
+      // Para FormData, axios detecta automaticamente o Content-Type
+      const response = await axios.post(`${API_URL}/projects`, projectData);
 
       if (response.data.success) {
         projects.value.unshift(response.data.data);
@@ -137,6 +134,7 @@ export const useProjectsStore = defineStore("projects", () => {
       return false;
     } catch (err: any) {
       error.value = err.response?.data?.message || "Erro ao criar projeto";
+      console.error("[createProject] Erro:", err.response?.data || err.message);
       return false;
     } finally {
       loading.value = false;
@@ -151,16 +149,10 @@ export const useProjectsStore = defineStore("projects", () => {
     error.value = null;
 
     try {
-      const isFormData = projectData instanceof FormData;
-      const headers = isFormData
-        ? { "Content-Type": "multipart/form-data" }
-        : { "Content-Type": "application/json" };
+      // Não precisa definir headers - axios usa defaults (inclui Authorization)
       const response = await axios.put(
         `${API_URL}/projects/${id}`,
         projectData,
-        {
-          headers,
-        },
       );
 
       if (response.data.success) {
@@ -173,6 +165,7 @@ export const useProjectsStore = defineStore("projects", () => {
       return false;
     } catch (err: any) {
       error.value = err.response?.data?.message || "Erro ao atualizar projeto";
+      console.error("[updateProject] Erro:", err.response?.data || err.message);
       return false;
     } finally {
       loading.value = false;
