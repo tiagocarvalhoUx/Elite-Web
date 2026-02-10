@@ -1,4 +1,3 @@
-
 import { initDb } from "../_lib/db.js";
 import { authenticateToken, setCors } from "../_lib/auth.js";
 import multer from "multer";
@@ -7,19 +6,24 @@ import path from "path";
 // Configuração do Multer para upload de imagens
 const storage = multer.memoryStorage(); // memoryStorage para serverless
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Tipo de arquivo não suportado. Apenas JPEG, PNG, GIF e WEBP são permitidos.'), false);
+    cb(
+      new Error(
+        "Tipo de arquivo não suportado. Apenas JPEG, PNG, GIF e WEBP são permitidos.",
+      ),
+      false,
+    );
   }
 };
 const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB
-  }
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
 });
 
 export default async function handler(req, res) {
@@ -86,13 +90,15 @@ export default async function handler(req, res) {
 
       const current = existing.rows[0];
 
-
       // Suporte a multipart/form-data (upload) e JSON
       let updateData;
-      if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
+      if (
+        req.headers["content-type"] &&
+        req.headers["content-type"].includes("multipart/form-data")
+      ) {
         // FormData
         await new Promise((resolve, reject) => {
-          upload.single('image')(req, res, (err) => {
+          upload.single("image")(req, res, (err) => {
             if (err) reject(err);
             else resolve();
           });
@@ -100,7 +106,9 @@ export default async function handler(req, res) {
         updateData = {
           title: req.body.title,
           description: req.body.description,
-          image_url: req.file ? `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}` : req.body.image_url,
+          image_url: req.file
+            ? `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`
+            : req.body.image_url,
           project_link: req.body.project_link,
           category: req.body.category,
           is_active: req.body.is_active,
@@ -108,7 +116,7 @@ export default async function handler(req, res) {
       } else {
         // JSON
         let body = req.body;
-        if (typeof body === 'string') {
+        if (typeof body === "string") {
           body = JSON.parse(body);
         }
         updateData = body;

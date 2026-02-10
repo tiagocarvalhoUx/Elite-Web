@@ -267,144 +267,166 @@ router.get("/:id", async (req, res) => {
 
 // POST /api/projects - Criar (protegido)
 // Middleware condicional: só usa multer se for multipart/form-data
-router.post("/", authenticateToken, (req, res, next) => {
-  const contentType = req.headers["content-type"] || "";
-  console.log("Content-Type:", contentType);
-  if (contentType.includes("multipart/form-data")) {
-    upload.single("image")(req, res, (err) => {
-      if (err) {
-        console.error("Multer error:", err);
-        return res.status(400).json({
-          success: false,
-          message: err.message,
-        });
-      }
+router.post(
+  "/",
+  authenticateToken,
+  (req, res, next) => {
+    const contentType = req.headers["content-type"] || "";
+    console.log("Content-Type:", contentType);
+    if (contentType.includes("multipart/form-data")) {
+      upload.single("image")(req, res, (err) => {
+        if (err) {
+          console.error("Multer error:", err);
+          return res.status(400).json({
+            success: false,
+            message: err.message,
+          });
+        }
+        next();
+      });
+    } else {
       next();
-    });
-  } else {
-    next();
-  }
-}, async (req, res) => {
-  try {
-    console.log("POST /api/projects - Body:", req.body);
-    console.log("File:", req.file);
-    const {
-      title,
-      description,
-      project_link,
-      category,
-      is_active,
-      image_url,
-    } = req.body;
-
-    console.log("Parsed data:", { title, description, project_link, category, is_active, image_url });
-
-    // URL da imagem: prioridade para upload, depois URL do body, depois placeholder
-    let imageUrl = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="%23111131"/><rect x="40" y="40" width="720" height="520" rx="24" ry="24" fill="%231a1d28" stroke="%232c3142" stroke-width="2"/><text x="400" y="315" font-family="Arial, sans-serif" font-size="28" fill="%238a94b2" text-anchor="middle">Sem imagem</text></svg>`;
-    if (req.file) {
-      imageUrl = `${getBaseUrl(req)}/uploads/${req.file.filename}`;
-    } else if (image_url && (image_url.startsWith('http://') || image_url.startsWith('https://') || image_url.startsWith('data:'))) {
-      imageUrl = image_url;
     }
+  },
+  async (req, res) => {
+    try {
+      console.log("POST /api/projects - Body:", req.body);
+      console.log("File:", req.file);
+      const {
+        title,
+        description,
+        project_link,
+        category,
+        is_active,
+        image_url,
+      } = req.body;
 
-    console.log("Image URL:", imageUrl);
+      console.log("Parsed data:", {
+        title,
+        description,
+        project_link,
+        category,
+        is_active,
+        image_url,
+      });
 
-    const newProject = {
-      id: nextId++,
-      title,
-      description: description || "",
-      image_url: imageUrl,
-      project_link: project_link || "",
-      category: category || "Outro",
-      is_active: is_active !== "false" && is_active !== false,
-      created_at: new Date().toISOString(),
-    };
+      // URL da imagem: prioridade para upload, depois URL do body, depois placeholder
+      let imageUrl = `data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600"><rect width="800" height="600" fill="%23111131"/><rect x="40" y="40" width="720" height="520" rx="24" ry="24" fill="%231a1d28" stroke="%232c3142" stroke-width="2"/><text x="400" y="315" font-family="Arial, sans-serif" font-size="28" fill="%238a94b2" text-anchor="middle">Sem imagem</text></svg>`;
+      if (req.file) {
+        imageUrl = `${getBaseUrl(req)}/uploads/${req.file.filename}`;
+      } else if (
+        image_url &&
+        (image_url.startsWith("http://") ||
+          image_url.startsWith("https://") ||
+          image_url.startsWith("data:"))
+      ) {
+        imageUrl = image_url;
+      }
 
-    console.log("New project:", newProject);
+      console.log("Image URL:", imageUrl);
 
-    projects.push(newProject);
-    saveProjects(); // Persistir no arquivo
+      const newProject = {
+        id: nextId++,
+        title,
+        description: description || "",
+        image_url: imageUrl,
+        project_link: project_link || "",
+        category: category || "Outro",
+        is_active: is_active !== "false" && is_active !== false,
+        created_at: new Date().toISOString(),
+      };
 
-    console.log("✅ Projeto criado:", newProject);
+      console.log("New project:", newProject);
 
-    res.status(201).json({
-      success: true,
-      message: "Projeto criado com sucesso",
-      data: newProject,
-    });
-  } catch (error) {
-    console.error("❌ Erro ao criar projeto:", error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+      projects.push(newProject);
+      saveProjects(); // Persistir no arquivo
+
+      console.log("✅ Projeto criado:", newProject);
+
+      res.status(201).json({
+        success: true,
+        message: "Projeto criado com sucesso",
+        data: newProject,
+      });
+    } catch (error) {
+      console.error("❌ Erro ao criar projeto:", error);
+      res.status(500).json({ success: false, message: error.message });
+    }
+  },
+);
 
 // PUT /api/projects/:id - Atualizar (protegido)
 // Middleware condicional: só usa multer se for multipart/form-data
-router.put("/:id", authenticateToken, (req, res, next) => {
-  const contentType = req.headers["content-type"] || "";
-  if (contentType.includes("multipart/form-data")) {
-    upload.single("image")(req, res, next);
-  } else {
-    next();
-  }
-}, async (req, res) => {
-  try {
-    const id = parseInt(req.params.id);
-    const index = projects.findIndex((p) => p.id === id);
-
-    if (index === -1) {
-      return res
-        .status(404)
-        .json({ success: false, message: "Projeto não encontrado" });
+router.put(
+  "/:id",
+  authenticateToken,
+  (req, res, next) => {
+    const contentType = req.headers["content-type"] || "";
+    if (contentType.includes("multipart/form-data")) {
+      upload.single("image")(req, res, next);
+    } else {
+      next();
     }
+  },
+  async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const index = projects.findIndex((p) => p.id === id);
 
-    const {
-      title,
-      description,
-      project_link,
-      category,
-      is_active,
-      image_url,
-    } = req.body;
+      if (index === -1) {
+        return res
+          .status(404)
+          .json({ success: false, message: "Projeto não encontrado" });
+      }
 
-    // Se tiver nova imagem, usar ela (upload ou URL do body)
-    let imageUrl = projects[index].image_url;
-    if (req.file) {
-      imageUrl = `${getBaseUrl(req)}/uploads/${req.file.filename}`;
-    } else if (image_url !== undefined) {
-      imageUrl = image_url;
+      const {
+        title,
+        description,
+        project_link,
+        category,
+        is_active,
+        image_url,
+      } = req.body;
+
+      // Se tiver nova imagem, usar ela (upload ou URL do body)
+      let imageUrl = projects[index].image_url;
+      if (req.file) {
+        imageUrl = `${getBaseUrl(req)}/uploads/${req.file.filename}`;
+      } else if (image_url !== undefined) {
+        imageUrl = image_url;
+      }
+
+      projects[index] = {
+        ...projects[index],
+        title: title !== undefined ? title : projects[index].title,
+        description:
+          description !== undefined ? description : projects[index].description,
+        project_link:
+          project_link !== undefined
+            ? project_link
+            : projects[index].project_link,
+        category: category !== undefined ? category : projects[index].category,
+        image_url: imageUrl,
+        is_active:
+          is_active !== undefined
+            ? is_active === "true" || is_active === true
+            : projects[index].is_active,
+      };
+
+      console.log("✅ Projeto atualizado:", projects[index]);
+      saveProjects(); // Persistir no arquivo
+
+      res.json({
+        success: true,
+        message: "Projeto atualizado com sucesso",
+        data: projects[index],
+      });
+    } catch (error) {
+      console.error("❌ Erro ao atualizar projeto:", error);
+      res.status(500).json({ success: false, message: error.message });
     }
-
-    projects[index] = {
-      ...projects[index],
-      title: title !== undefined ? title : projects[index].title,
-      description:
-        description !== undefined ? description : projects[index].description,
-      project_link:
-        project_link !== undefined
-          ? project_link
-          : projects[index].project_link,
-      category: category !== undefined ? category : projects[index].category,
-      image_url: imageUrl,
-      is_active:
-        is_active !== undefined
-          ? is_active === "true" || is_active === true
-          : projects[index].is_active,
-    };
-
-    console.log("✅ Projeto atualizado:", projects[index]);
-    saveProjects(); // Persistir no arquivo
-
-    res.json({
-      success: true,
-      message: "Projeto atualizado com sucesso",
-      data: projects[index],
-    });
-  } catch (error) {
-    console.error("❌ Erro ao atualizar projeto:", error);
-    res.status(500).json({ success: false, message: error.message });
-  }
-});
+  },
+);
 
 // DELETE /api/projects/:id - Deletar (protegido)
 router.delete("/:id", authenticateToken, async (req, res) => {

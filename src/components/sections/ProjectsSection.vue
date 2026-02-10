@@ -89,66 +89,17 @@ import TechBadge from "../ui/TechBadge.vue";
 import { useProjectsStore } from "../../stores";
 
 // Imports das imagens dos projetos originais
-import projeto1 from "../../assets/images/burguer layout.png";
-import projeto2 from "../../assets/images/Barbearia.png";
-import projeto3 from "../../assets/images/Faster-food.png";
-import projeto4 from "../../assets/images/Mrv.png";
-import projeto5 from "../../assets/images/Pet-shop.png";
-import projeto6 from "../../assets/images/coffe-app.png";
-import projeto7 from "../../assets/images/marcenaria.png";
-import projeto8 from "../../assets/images/Reza-Vela.png";
-import projeto9 from "../../assets/images/caetano-hidráulica.png";
+// ...existing code...
 
 const projectsStore = useProjectsStore();
 
 // Projetos originais com imagens locais
-const originalProjects = [
-  {
-    src: projeto4,
-    alt: "Projeto MRV",
-    link: "https://mrv-house.vercel.app/",
-  },
-  {
-    src: projeto5,
-    alt: "Projeto Pet Shop",
-    link: "https://petshop-chi.vercel.app/",
-  },
-  {
-    src: projeto6,
-    alt: "Projeto Coffee App",
-    link: "https://coffe-web-henna.vercel.app/",
-  },
-  {
-    src: projeto7,
-    alt: "Projeto Marcenaria App",
-    link: "https://marcenaria-vue.vercel.app/",
-  },
-  {
-    src: projeto8,
-    alt: "Projeto Reza Vela",
-    link: "https://reza-vela.vercel.app/",
-  },
-  {
-    src: projeto9,
-    alt: "Projeto Caetano Hidráulica",
-    link: "https://caetano-hidraulica.vercel.app/",
-  },
-  {
-    src: projeto1,
-    alt: "Projeto Burger Layout",
-    link: "https://cardapio-hambuguer-three.vercel.app/",
-  },
-  {
-    src: projeto2,
-    alt: "Projeto Barbearia",
-    link: "https://barbearia-react-eight.vercel.app/",
-  },
-  {
-    src: projeto3,
-    alt: "Projeto Faster Food",
-    link: "https://faster-food-omega.vercel.app/",
-  },
-];
+interface Project {
+  src: string;
+  alt: string;
+  link: string;
+}
+const originalProjects: Project[] = [];
 
 // Buscar projetos novos da API
 onMounted(() => {

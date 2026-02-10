@@ -7,11 +7,16 @@ import path from "path";
 const storage = multer.memoryStorage(); // Usar memory para Vercel serverless
 
 const fileFilter = (req, file, cb) => {
-  const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+  const allowedTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
   if (allowedTypes.includes(file.mimetype)) {
     cb(null, true);
   } else {
-    cb(new Error('Tipo de arquivo não suportado. Apenas JPEG, PNG, GIF e WEBP são permitidos.'), false);
+    cb(
+      new Error(
+        "Tipo de arquivo não suportado. Apenas JPEG, PNG, GIF e WEBP são permitidos.",
+      ),
+      false,
+    );
   }
 };
 
@@ -19,8 +24,8 @@ const upload = multer({
   storage,
   fileFilter,
   limits: {
-    fileSize: 5 * 1024 * 1024 // 5MB
-  }
+    fileSize: 5 * 1024 * 1024, // 5MB
+  },
 });
 
 // Projetos padrão para popular o banco na primeira vez
@@ -182,11 +187,14 @@ export default async function handler(req, res) {
       let projectData;
 
       // Verificar se é FormData (upload) ou JSON
-      if (req.headers['content-type'] && req.headers['content-type'].includes('multipart/form-data')) {
+      if (
+        req.headers["content-type"] &&
+        req.headers["content-type"].includes("multipart/form-data")
+      ) {
         // Usar multer para FormData
         try {
           await new Promise((resolve, reject) => {
-            upload.single('image')(req, res, (err) => {
+            upload.single("image")(req, res, (err) => {
               if (err) reject(err);
               else resolve();
             });
@@ -194,7 +202,9 @@ export default async function handler(req, res) {
           projectData = {
             title: req.body.title,
             description: req.body.description,
-            image_url: req.file ? `data:${req.file.mimetype};base64,${req.file.buffer.toString('base64')}` : req.body.image_url,
+            image_url: req.file
+              ? `data:${req.file.mimetype};base64,${req.file.buffer.toString("base64")}`
+              : req.body.image_url,
             project_link: req.body.project_link,
             category: req.body.category,
             is_active: req.body.is_active,
@@ -208,7 +218,7 @@ export default async function handler(req, res) {
       } else {
         // JSON
         let body = req.body;
-        if (typeof body === 'string') {
+        if (typeof body === "string") {
           body = JSON.parse(body);
         }
         projectData = body;
