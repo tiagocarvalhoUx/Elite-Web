@@ -132,7 +132,12 @@ export const useProjectsStore = defineStore("projects", () => {
       }
       return false;
     } catch (err: any) {
-      error.value = err.response?.data?.message || "Erro ao criar projeto";
+      const status = err.response?.status;
+      if (status === 401 || status === 403) {
+        error.value = "Sessão expirada. Faça login novamente.";
+      } else {
+        error.value = err.response?.data?.message || "Erro ao criar projeto";
+      }
       console.error("[createProject] Erro:", err.response?.data || err.message);
       return false;
     } finally {
@@ -163,7 +168,12 @@ export const useProjectsStore = defineStore("projects", () => {
       }
       return false;
     } catch (err: any) {
-      error.value = err.response?.data?.message || "Erro ao atualizar projeto";
+      const status = err.response?.status;
+      if (status === 401 || status === 403) {
+        error.value = "Sessão expirada. Faça login novamente.";
+      } else {
+        error.value = err.response?.data?.message || "Erro ao atualizar projeto";
+      }
       console.error("[updateProject] Erro:", err.response?.data || err.message);
       return false;
     } finally {
