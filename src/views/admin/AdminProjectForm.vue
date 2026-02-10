@@ -127,7 +127,7 @@
               <p class="text-white font-medium mb-2">
                 Clique para fazer upload
               </p>
-              <p class="text-gray-400 text-sm">PNG, JPG até 5MB</p>
+              <p class="text-gray-400 text-sm">PNG, JPG até 3MB (comprime automaticamente)</p>
               <button
                 type="button"
                 @click="fileInput?.click()"
@@ -370,17 +370,52 @@ const onImageUrlError = () => {
   errors.value.image = "Não foi possível carregar a imagem desta URL";
 };
 
-const handleImageChange = (e: Event) => {
+const compressImage = (file: File, maxWidth = 1200, maxHeight = 800, quality = 0.8): Promise<Blob> => {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
+    
+    if (!ctx) {
+      reject(new Error('Canvas not supported'));
+      return;
+    }
+
+    img.onload = () => {
+      let { width, height } = img;
+      
+      // Calcular novo tamanho mantendo proporção
+      if (width > maxWidth || height > maxHeight) {
+        const ratio = Math.min(maxWidth / width, maxHeight / height);
+        width = Math.floor(width * ratio);
+        height = Math.floor(height * ratio);
+      }
+      
+      canvas.width = width;
+      canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      
+      // Converter para blob com compressão
+      canvas.toBlob(
+        (blob) => {
+          if (blob) resolve(blob);
+          else reject(new Error('Failed to compress image'));
+        },
+        file.type,
+        quality
+      );
+    };
+    
+    img.onerror = () => reject(new Error('Failed to load image'));
+    img.src = URL.createObjectURL(file);
+  });
+};
+
+const handleImageChange = async (e: Event) => {
   const target = e.target as HTMLInputElement;
   const file = target.files?.[0];
 
   if (!file) return;
-
-  // Validate size (5MB)
-  if (file.size > 5 * 1024 * 1024) {
-    errors.value.image = "Imagem deve ter no máximo 5MB";
-    return;
-  }
 
   // Validate type
   if (!file.type.startsWith("image/")) {
@@ -388,15 +423,36 @@ const handleImageChange = (e: Event) => {
     return;
   }
 
-  imageFile.value = file;
   errors.value.image = "";
 
-  // Create preview
-  const reader = new FileReader();
-  reader.onload = (e) => {
-    imagePreview.value = e.target?.result as string;
-  };
-  reader.readAsDataURL(file);
+  try {
+    // Comprimir imagem se for grande
+    let processedFile: File = file;
+    
+    if (file.size > 500 * 1024) { // Se maior que 500KB, comprimir
+      const compressed = await compressImage(file);
+      processedFile = new File([compressed], file.name, { type: file.type });
+      console.log(`Imagem comprimida: ${(file.size / 1024).toFixed(1)}KB → ${(processedFile.size / 1024).toFixed(1)}KB`);
+    }
+
+    // Validate final size (3MB para Vercel)
+    if (processedFile.size > 3 * 1024 * 1024) {
+      errors.value.image = "Imagem muito grande. Máximo 3MB após compressão.";
+      return;
+    }
+
+    imageFile.value = processedFile;
+
+    // Create preview
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      imagePreview.value = e.target?.result as string;
+    };
+    reader.readAsDataURL(processedFile);
+  } catch (err) {
+    errors.value.image = "Erro ao processar imagem. Tente outra.";
+    console.error(err);
+  }
 };
 
 const removeImage = () => {
