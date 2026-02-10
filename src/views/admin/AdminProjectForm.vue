@@ -459,23 +459,8 @@ const handleSubmit = async () => {
 
   let success: boolean;
 
-  if (imageMode.value === "url" || !imageFile.value) {
-    // Enviar como JSON (funciona na Vercel)
-    const jsonData = {
-      title: form.value.title,
-      description: form.value.description,
-      category: form.value.category,
-      project_link: form.value.project_link,
-      is_active: form.value.is_active,
-      image_url: form.value.image_url || imagePreview.value,
-    };
-
-    if (isEditing.value && props.id) {
-      success = await projectsStore.updateProject(Number(props.id), jsonData);
-    } else {
-      success = await projectsStore.createProject(jsonData);
-    }
-  } else {
+  // Prioridade: se tem arquivo selecionado, usa FormData (upload)
+  if (imageFile.value) {
     // Enviar como FormData (upload de arquivo - funciona apenas local)
     const formData = new FormData();
     formData.append("title", form.value.title);
@@ -490,6 +475,25 @@ const handleSubmit = async () => {
     } else {
       success = await projectsStore.createProject(formData);
     }
+  } else if (imageMode.value === "url") {
+    // Enviar como JSON (funciona na Vercel)
+    const jsonData = {
+      title: form.value.title,
+      description: form.value.description,
+      category: form.value.category,
+      project_link: form.value.project_link,
+      is_active: form.value.is_active,
+      image_url: form.value.image_url,
+    };
+
+    if (isEditing.value && props.id) {
+      success = await projectsStore.updateProject(Number(props.id), jsonData);
+    } else {
+      success = await projectsStore.createProject(jsonData);
+    }
+  } else {
+    errors.value.image = "Selecione uma imagem ou forneça uma URL";
+    return;
   }
 
   if (success) {
