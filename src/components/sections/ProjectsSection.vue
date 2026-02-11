@@ -70,7 +70,7 @@
       </div>
 
       <!-- CTA -->
-      <div class="text-center mt-16" data-aos="zoom-in" data-aos-delay="200">
+      <div class="text-center mt-16" data-aos="zoom-in" data-aos-delay="300">
         <NeonButton :href="whatsappLink" external variant="gradient" size="lg">
           <template #icon>
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
