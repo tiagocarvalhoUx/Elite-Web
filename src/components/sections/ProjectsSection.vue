@@ -86,10 +86,11 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch, nextTick } from "vue";
 import NeonButton from "../ui/NeonButton.vue";
 import TechBadge from "../ui/TechBadge.vue";
 import { useProjectsStore } from "../../stores";
+import AOS from "aos";
 
 // Imports das imagens dos projetos originais
 // ...existing code...
@@ -108,6 +109,16 @@ const originalProjects: Project[] = [];
 onMounted(() => {
   projectsStore.fetchProjects();
 });
+
+// Atualizar AOS quando projetos forem carregados
+watch(
+  () => projectsStore.activeProjects,
+  async () => {
+    await nextTick();
+    AOS.refresh();
+  },
+  { deep: true }
+);
 
 // Combinar projetos originais + novos da API (que não sejam os mesmos)
 const projects = computed(() => {
