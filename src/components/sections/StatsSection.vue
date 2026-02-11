@@ -9,8 +9,9 @@
         <div 
           v-for="(stat, index) in stats" 
           :key="stat.label"
-          class="text-center animate-fade-in"
-          :style="{ animationDelay: `${index * 100}ms` }"
+          class="text-center"
+          data-aos="zoom-in"
+          :data-aos-delay="index * 150"
         >
           <div class="text-4xl md:text-5xl font-bold text-gradient mb-2">
             <span ref="counters">{{ stat.value }}</span>

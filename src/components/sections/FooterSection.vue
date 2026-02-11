@@ -4,7 +4,7 @@
     <div class="absolute inset-0 glass-dark"></div>
     
     <div class="container-futuristic relative z-10 py-8">
-      <div class="text-center space-y-2">
+      <div class="text-center space-y-2" data-aos="fade-up" data-aos-duration="600">
         <p class="text-gray-400 text-sm">
           © {{ new Date().getFullYear() }} Elite Web Designer. Todos os direitos reservados.
         </p>

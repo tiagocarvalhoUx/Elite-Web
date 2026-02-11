@@ -12,11 +12,11 @@
     <div class="container-futuristic relative z-10">
       <!-- Header -->
       <div class="text-center mb-16">
-        <TechBadge label="Portfólio" variant="neon" class="mb-4" />
-        <h2 class="heading-futuristic heading-lg text-gradient-animated mb-4">
+        <TechBadge label="Portfólio" variant="neon" class="mb-4" data-aos="zoom-in" />
+        <h2 class="heading-futuristic heading-lg text-gradient-animated mb-4" data-aos="fade-up">
           Projetos em Destaque
         </h2>
-        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
           Explore nossa coleção de projetos inovadores que transformaram ideias
           em realidade digital
         </p>
@@ -31,6 +31,9 @@
           target="_blank"
           rel="noopener noreferrer"
           class="project-card group block rounded-xl overflow-hidden glass-card hover:border-purple-500/50 transition-all duration-300"
+          data-aos="fade-up"
+          :data-aos-delay="index * 100"
+          :data-aos-duration="600"
         >
           <div class="relative overflow-hidden">
             <img
@@ -66,7 +69,7 @@
       </div>
 
       <!-- CTA -->
-      <div class="text-center mt-16">
+      <div class="text-center mt-16" data-aos="zoom-in" data-aos-delay="200">
         <NeonButton :href="whatsappLink" external variant="gradient" size="lg">
           <template #icon>
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

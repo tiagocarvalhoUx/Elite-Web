@@ -8,18 +8,18 @@
     <div class="container-futuristic relative z-10">
       <!-- Header -->
       <div class="text-center mb-16">
-        <TechBadge label="Contato" variant="neon" class="mb-4" />
-        <h2 class="heading-futuristic heading-lg text-gradient-animated mb-4">
+        <TechBadge label="Contato" variant="neon" class="mb-4" data-aos="zoom-in" />
+        <h2 class="heading-futuristic heading-lg text-gradient-animated mb-4" data-aos="fade-up">
           Vamos Criar Algo Incrível
         </h2>
-        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
           Pronto para transformar sua ideia em realidade? Entre em contato e vamos conversar sobre seu projeto
         </p>
       </div>
 
       <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
         <!-- Contact Info -->
-        <div class="space-y-6">
+        <div class="space-y-6" data-aos="fade-right">
           <GlassCard 
             v-for="(contact, index) in contacts" 
             :key="contact.title"
@@ -27,6 +27,8 @@
             :animated="true"
             :delay="index * 100"
             class="group"
+            data-aos="fade-right"
+            :data-aos-delay="index * 100"
           >
             <a 
               :href="contact.link"
@@ -69,6 +71,8 @@
           :animated="true" 
           :delay="200"
           class="h-fit"
+          data-aos="fade-left"
+          data-aos-delay="200"
         >
           <form @submit.prevent="handleSubmit" class="space-y-6">
             <div class="grid sm:grid-cols-2 gap-4">

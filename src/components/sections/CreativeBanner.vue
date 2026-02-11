@@ -1,5 +1,5 @@
 <template>
-  <section class="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-3 sm:py-4 mt-14 sm:mt-16 overflow-hidden">
+  <section class="relative bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 py-3 sm:py-4 mt-14 sm:mt-16 overflow-hidden" data-aos="fade-down" data-aos-duration="600">
     <!-- Animated background elements -->
     <div class="absolute inset-0 opacity-20">
       <div class="absolute top-1/2 left-1/4 w-2 h-2 bg-white rounded-full animate-float"></div>

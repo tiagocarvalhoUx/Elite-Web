@@ -6,11 +6,11 @@
     <div class="container-futuristic relative z-10">
       <!-- Header -->
       <div class="text-center mb-16">
-        <TechBadge label="Serviços" variant="neon" class="mb-4" />
-        <h2 class="heading-futuristic heading-lg text-gradient-animated mb-4">
+        <TechBadge label="Serviços" variant="neon" class="mb-4" data-aos="zoom-in" />
+        <h2 class="heading-futuristic heading-lg text-gradient-animated mb-4" data-aos="fade-up">
           Soluções Digitais Completas
         </h2>
-        <p class="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p class="text-gray-400 text-lg max-w-2xl mx-auto" data-aos="fade-up" data-aos-delay="100">
           Oferecemos um ecossistema completo de serviços para impulsionar sua presença digital
         </p>
       </div>
@@ -25,6 +25,8 @@
           :animated="true"
           :delay="index * 100"
           class="group"
+          data-aos="fade-up"
+          :data-aos-delay="index * 100"
         >
           <!-- Icon -->
           <div 
