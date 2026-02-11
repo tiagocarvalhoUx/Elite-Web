@@ -5,17 +5,14 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vue-tsc -b && vite build && npm run postbuild",
-    "postbuild": "copy dist\\index.html dist\\404.html",
+    "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "server": "node server/app.js",
     "server:dev": "nodemon server/app.js",
     "server:mock": "nodemon server/app-mock.js",
     "create-admin": "node server/create-admin.js",
     "start:all": "concurrently \"npm run server:mock\" \"npm run dev\"",
-    "stop:all": "taskkill /F /IM node.exe",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "stop:all": "taskkill /F /IM node.exe"
   },
   "dependencies": {
     "@libsql/client": "^0.17.0",

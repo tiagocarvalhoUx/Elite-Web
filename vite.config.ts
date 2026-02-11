@@ -4,7 +4,6 @@ import { fileURLToPath, URL } from 'url'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/Elite-Web/',
   build: {
     sourcemap: false,
   },
