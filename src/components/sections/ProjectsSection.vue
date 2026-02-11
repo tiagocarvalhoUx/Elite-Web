@@ -31,9 +31,10 @@
           target="_blank"
           rel="noopener noreferrer"
           class="project-card group block rounded-xl overflow-hidden glass-card hover:border-purple-500/50 transition-all duration-300"
-          data-aos="fade-up"
-          :data-aos-delay="index * 100"
-          :data-aos-duration="600"
+          data-aos="flip-left"
+          data-aos-easing="ease-out-cubic"
+          :data-aos-duration="2000"
+          :data-aos-delay="index * 200"
         >
           <div class="relative overflow-hidden">
             <img
