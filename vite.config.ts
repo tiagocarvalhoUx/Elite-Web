@@ -4,14 +4,9 @@ import { fileURLToPath, URL } from 'url'
 
 export default defineConfig({
   plugins: [vue()],
-  base: '/Elite-Web/',
+  base: './',
   build: {
     sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
-    },
   },
   resolve: {
     alias: {
