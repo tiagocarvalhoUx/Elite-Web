@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npx shadcn@latest add https://reactbits.dev/r/ElectricBorder-TS-CSS)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
