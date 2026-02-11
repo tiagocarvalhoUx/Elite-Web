@@ -8,6 +8,7 @@
       customClass
     ]"
     :style="customStyles"
+    v-bind="$attrs"
   >
     <!-- Borda Neon Decorativa -->
     <div v-if="borderGlow" class="card-border-glow"></div>
