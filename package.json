@@ -12,7 +12,9 @@
     "server:mock": "nodemon server/app-mock.js",
     "create-admin": "node server/create-admin.js",
     "start:all": "concurrently \"npm run server:mock\" \"npm run dev\"",
-    "stop:all": "taskkill /F /IM node.exe"
+    "stop:all": "taskkill /F /IM node.exe",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@libsql/client": "^0.17.0",
@@ -44,6 +46,7 @@
     "@vue/tsconfig": "^0.7.0",
     "autoprefixer": "^10.4.21",
     "concurrently": "^9.2.1",
+    "gh-pages": "^6.3.0",
     "nodemon": "^3.1.0",
     "postcss": "^8.5.6",
     "tailwindcss": "^3.4.17",
