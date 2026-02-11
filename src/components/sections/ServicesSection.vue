@@ -17,19 +17,22 @@
 
       <!-- Services Grid -->
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        <GlassCard 
+        <div
           v-for="(service, index) in services" 
           :key="service.title"
-          variant="dark"
-          :hoverable="true"
-          :animated="true"
-          :delay="index * 100"
-          class="group"
           :data-aos="index % 2 === 0 ? 'fade-right' : 'fade-left'"
-          data-aos-offset="400"
+          data-aos-offset="300"
           :data-aos-easing="index % 2 === 0 ? 'ease-in-sine' : 'ease-out-sine'"
           :data-aos-duration="index % 2 === 0 ? 800 : 500"
+          class="h-full"
         >
+          <GlassCard 
+            variant="dark"
+            :hoverable="true"
+            :animated="true"
+            :delay="index * 100"
+            class="group h-full"
+          >
           <!-- Icon -->
           <div 
             class="w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110"
@@ -61,6 +64,7 @@
           </ul>
         </GlassCard>
       </div>
+    </div>
     </div>
   </section>
 </template>
