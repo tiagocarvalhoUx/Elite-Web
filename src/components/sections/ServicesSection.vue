@@ -28,7 +28,7 @@
           :data-aos="index % 2 === 0 ? 'fade-right' : 'fade-left'"
           data-aos-offset="400"
           :data-aos-easing="index % 2 === 0 ? 'ease-in-sine' : 'ease-out-sine'"
-          :data-aos-duration="index % 2 === 0 ? 800 : 600"
+          :data-aos-duration="index % 2 === 0 ? 800 : 500"
         >
           <!-- Icon -->
           <div 
